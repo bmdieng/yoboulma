@@ -1,0 +1,78 @@
+<ion-header parallax imageUrl="https://picsum.photos/350" maximumHeight="350" expandedColor="#AAA" titleColor="white">
+
+  <ion-toolbar color="danger">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>
+      Mon Profile
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- -->
+<ion-content appParallaxHeader [scrollEvents]="true">
+
+  <div class="parallax-image" >
+  </div>
+
+  <div class="main">
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <!-- <div style="align-content: center">
+            <ion-avatar item-start>
+              <img src="assets/img/person.png">
+            </ion-avatar>
+          </div> -->
+          <form style="text-align:justify; padding:3px;margin: 4px;font-size:20px;font-family: Arial; color: #ccc; border: solid 1px #e0115f">
+              <ion-item>
+                  <ion-label floating style="color: #e0115f">
+                    Prénom
+                  </ion-label>
+                  <ion-input type="text" [(ngModel)]="profile.prenom" [ngModelOptions]="{standalone:
+                    true}"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating style="color: #e0115f">
+                      Nom
+                    </ion-label>
+                    <ion-input type="text" [(ngModel)]="profile.nom" [ngModelOptions]="{standalone:
+                      true}"></ion-input>
+                  </ion-item>
+                <ion-item> 
+              <ion-label floating style="color: #e0115f">
+                Téléphone
+              </ion-label>
+              <ion-input type="tel" [(ngModel)]="profile.tel" [ngModelOptions]="{standalone:
+                  true}"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label floating style="color: #e0115f">
+                Adresse :
+              </ion-label>
+              <ion-input type="text" [(ngModel)]="profile.adresse" [ngModelOptions]="{standalone:
+                    true}"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label floating style="color: #e0115f">
+                Email
+              </ion-label>
+              <ion-input type="email" [(ngModel)]="profile.email" [ngModelOptions]="{standalone:
+                  true}"></ion-input>
+            </ion-item>
+          </form>
+
+          <div margin-top>
+
+              <ion-button shape="block" size="large" (click)="mettreAjour()" color="danger">
+                  Mettre à jour
+              </ion-button>
+          </div>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>

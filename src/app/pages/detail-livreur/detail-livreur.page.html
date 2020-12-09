@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>information du livreur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="Menu">
+
+    <ion-card>
+      <ion-avatar>
+        <img src="assets/img/person.png"/>
+      </ion-avatar>
+        <ion-card-content>
+          <ion-card-title>
+            {{livreur?.name}}
+            </ion-card-title>
+            <h2>{{livreur?.titre}}</h2>
+            <h2> <ion-icon name="pin" item-start large style="color:#e0115f"></ion-icon>
+              {{livreur?.adresse}}</h2>
+              
+              <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
+              <p><b><u>Description</u></b> :  {{livreur.description}} </p>
+        </ion-card-content>
+        <ion-item>
+            <button ion-button large icon-start item-start round color="light" (click)="callLivreur()" >
+              <ion-icon name="call"></ion-icon><h4 style="font-style: gras;">Appeler</h4>
+            </button>
+            <button ion-button large icon-start item-end round color="Secondary" (click)="smsLivreur()">
+                <ion-icon name="mail"></ion-icon>
+                <h4 style="font-style: gras;">SMS</h4>
+              </button>
+          </ion-item>
+      </ion-card>
+
+</ion-content>

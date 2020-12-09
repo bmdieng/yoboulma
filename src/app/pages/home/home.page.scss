@@ -1,0 +1,24 @@
+.home {
+  background: url("../../../assets/img/BG2.jpg") no-repeat ;
+  background-size: cover;
+  color: #FFF;
+}
+
+ion-toolbar {
+  background-image: url('../../../assets/icon/Yoboulma.png') 0 0/100% 100% no-repeat;
+}
+.navigate{
+color:#e0115f; 
+font-size: 35px; 
+transform: rotate(45deg);
+}
+
+.navigate:active{
+color:#000;
+}
+
+.img{
+  width: 250px;
+  height: 50px;
+  padding: 1px 1px 1px 44px!important;
+}

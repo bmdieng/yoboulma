@@ -1,0 +1,57 @@
+<!-- -->
+<ion-content padding>
+
+<div>
+    <!-- Logo -->
+    <div padding-horizontal text-center>
+      <div class="logo">
+        <img src="assets/imgs/scooter.png" alt="Yoboulma">
+        <img src="assets/icon/Yoboulma.png" alt="Yoboulma">
+      </div>
+      
+        <div ion-text class="card-align">
+          <h3 style="color: orange">trouve ton livreur</h3>
+          <h3 style="color: #e0115f" >Inscription</h3>
+        </div>
+        
+    </div>
+
+    <!-- Login form -->
+    <ion-card>
+        <ion-card-content>
+            <form style="text-align:justify; padding:3px;margin: 4px;font-size:20px;font-family: Arial; color: #ccc; border: solid 1px #e0115f">
+                <ion-item>
+                  <ion-label floating style="color: #e0115f">
+                    Email
+                  </ion-label>
+                  <ion-input type="email" [(ngModel)]="user.email" name="first"></ion-input>
+                </ion-item>
+          
+                <ion-item>
+                  <ion-label floating style="color: #e0115f">
+                    Password
+                  </ion-label>
+                  <ion-input type="password" [(ngModel)]="user.password" name="last"></ion-input>
+                </ion-item>
+              </form>
+
+              <ion-button shape="block" size="default" (click)="register(user)" color="danger">
+                  <ion-icon slot="start" name="log-in"></ion-icon>
+                  S'inscrire
+              </ion-button>
+
+              <p text-right ion-text tappable (click)="login()"><strong><u>Je suis déjà membre</u></strong></p>
+          
+        </ion-card-content>
+      </ion-card>
+
+  </div>
+</ion-content>
+<ion-footer style="text-align: center" no-border *ngIf="!isKeyboardOpen">
+  <ion-toolbar transparent>
+    <ion-title>
+        <span style="color:#e0115f; text-align: center; font-family:'Arial';">By DigitPrest Consulting
+        </span>® 2020
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
