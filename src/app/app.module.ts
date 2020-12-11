@@ -14,8 +14,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SharedDirectivesModule } from './directives/shared-directives.module';
-// import { CallNumber } from '@ionic-native/call-number';
-// import { SMS } from '@ionic-native/sms';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,8 +35,10 @@ import { SharedDirectivesModule } from './directives/shared-directives.module';
     StatusBar,
     SplashScreen,
     AngularFirestoreModule,
-    // CallNumber,
-    // SMS,
+    Geolocation,
+    EmailComposer,
+    Network,
+    CallNumber,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

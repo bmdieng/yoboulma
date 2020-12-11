@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      <ion-title>
+          Consulter les annonces
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+<ion-content padding class="Menu">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+  <ion-list *ngFor="let annonce of annonces">
+    <ion-item (click)="Consulter()">
+      <h1>{{annonce?.auteur}}</h1>
+      <h2>{{annonce?.titre}}</h2>
+      <h2>Départ : <ion-icon name="arrow-round-forward" item-start large style="color:#e0115f"></ion-icon>
+        {{annonce?.depart}}</h2>
+      <h2>Arrivée : <ion-icon name="arrow-round-back" item-start large color="primary"></ion-icon>
+        {{annonce?.arrivee}}</h2>
+      <h2>Description : </h2> 
+      <span>{{annonce?.description}}</span>
+      <button ion-button clear item-end >Voir</button>
+  </ion-item>
+  </ion-list>
+  
+  <ion-fab center bottom >
+    <button ion-fab (click)="creerAnnonce()" color="danger">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
+

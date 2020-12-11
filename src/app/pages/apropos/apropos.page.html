@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      <ion-title>
+          A propos de Yoboulma
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding class="Menu">
+  <ion-avatar>
+      <img src="assets/img/Mami.jpg" style="height:16rem; width:12rem;">
+      <h1 style="color: black"><b>Ndéye Fatou DIENG</b></h1>
+  </ion-avatar>
+  <div style="color: black">
+    <u>Type :</u> Application de mise en relation entre particulier et livreur au Sénégal.
+    <br/><br/><u>Contexte :</u>
+      Depuis un certain temps, on a pu constater la floraison d’un nouveau phénomène de livraison entre particulier et livreur nommé « coursier à moto ». Ce phénomène étant un peu informel a attiré mon attention sur comment gérer au mieux cette activité en capitalisant les ressources et en proposant plus de choix aux utilisateurs.  
+      <br/><br/><u>Solution :</u>
+      Une première idée qui m’est venu en tête est de mettre en place une plateforme de mise en relation entre les usagers et les livreurs. 
+      En effet, en observant ce phénomène, j’ai pu constater que les livreurs sont souvent des jeunes disposant de moyen de transport et voulant arrondir leur fin de mois moyennant des cours de livraison qu’il font et qui sont rémunérées. Ainsi, leur proposé de s’inscrire sur cette plateforme leur permettra d’avoir plus de visibilité et d’augmenter leur chance de gagner de l’argent.
+      D’autre part, le client en ayant cette application installée sur leur téléphone ou bien sur la plateforme web (site) peuvent avoir plus de choix, visité les profils des livreurs et choisir celui qui lui convient. A la fin de la course, il peut émettre un avis ce qui participera à l’évolution du profil du livreur. 
+      Dans une phase de test, l’application mettra, juste en relation le client et le livreur et donc ne gèrera pas l’aspect paiement. Celui-ci se fera comme d’habitude en main propre.   
+      Application mobile disponible sur Android et IPhone. 
+      
+  </div>
+
+  <ion-fab center bottom >
+          <button ion-fab (click)="envoyerEmail()" color="danger">
+                  <ion-icon name="mail" ></ion-icon>
+          </button>
+        </ion-fab>
+</ion-content>

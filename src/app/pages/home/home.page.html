@@ -21,7 +21,7 @@
 
 <ion-header [translucent]="true">
 
-  <ion-toolbar>
+  <ion-toolbar >
     <ion-buttons slot="start" style="color:#e0115f">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -29,7 +29,7 @@
     <ion-title></ion-title>
     <!-- <ion-title>Bienvenu {{profileData?.prenom}} {{profileData?.nom}} </ion-title> -->
     <ion-buttons slot="primary" style="color: transparent">
-      <ion-button>
+      <ion-button (click)="openGeoloc()">
         <ion-icon slot="end" name="navigate" style="color:#e0115f"></ion-icon>
       </ion-button>
     </ion-buttons>

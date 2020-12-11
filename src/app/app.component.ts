@@ -29,22 +29,22 @@ export class AppComponent {
     },
     {
       title: 'Trouver un livreur',
-      url: '/folder/Outbox',
+      url: '/trouver-annonce',
       icon: 'search'
     },
     {
       title: 'Publier une annonce',
-      url: '/folder/Favorites',
+      url: '/publier-annonce',
       icon: 'create'
     },
     {
       title: 'A propos',
-      url: '/folder/Favorites',
+      url: '/apropos',
       icon: 'ribbon'
     },
     {
       title: 'Charte',
-      url: '/folder/Archived',
+      url: '/charte',
       icon: 'document'
     },
     {
@@ -63,15 +63,7 @@ export class AppComponent {
     private aFireAuth: AngularFireAuth,
     private aFireAuthDB : AngularFireDatabase,
     public router: Router) {  
-      this.aFireAuth.authState.pipe(take(1)).subscribe(data =>{
-        console.log(data);    
-        if(data && data.email && data.uid){
-          this.aFireAuthDB.object('profile/'+data.uid).valueChanges().subscribe(val => {
-            this.profileData = val;
-            console.log(this.profileData);
-          })
-        }  
-      })  
+      
     this.initializeApp();
   }
 
@@ -83,6 +75,15 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    this.aFireAuth.authState.pipe(take(1)).subscribe(data =>{
+      console.log(data);    
+      if(data && data.email && data.uid){
+        this.aFireAuthDB.object('profile/'+data.uid).valueChanges().subscribe(val => {
+          this.profileData = val;
+          console.log(this.profileData);
+        })
+      }  
+    })  
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());

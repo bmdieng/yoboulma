@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      <ion-title>
+          Trouver un livreur
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-content padding class="Menu">
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+  
+    <ion-list *ngFor="let livreur of livreurs">
+        <ion-item (click)="Consulter()">
+            <ion-thumbnail item-start>
+              <img src="assets/img/icon.png">
+            </ion-thumbnail>
+            <h1>{{livreur?.name}}</h1>              
+            <h2>{{livreur?.titre}}</h2>
+            <h2> <ion-icon name="pin" item-start large style="color:#e0115f"></ion-icon>
+              {{livreur?.adresse}} </h2>
+              <h2> <ion-icon name="call" item-start large style="color:#e0115f"></ion-icon>
+                {{livreur?.telephone}} </h2>
+              <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
+              <p><b><u>Description</u></b> :  {{livreur.description}} </p>
+          </ion-item>
+    </ion-list>
+    
+    <ion-fab center bottom >
+      <button ion-fab (click)="creerAnnonce()" color="danger">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
+
+</ion-content>

@@ -35,6 +35,38 @@ const routes: Routes = [
   {
     path: 'folder/:id',
     loadChildren: () => import('./pages/folder/folder.module').then( m => m.FolderPageModule)
+  },
+  {
+    path: 'apropos',
+    loadChildren: () => import('./pages/apropos/apropos.module').then( m => m.AproposPageModule)
+  },
+  {
+    path: 'aide',
+    loadChildren: () => import('./pages/aide/aide.module').then( m => m.AidePageModule)
+  },
+  {
+    path: 'charte',
+    loadChildren: () => import('./pages/charte/charte.module').then( m => m.ChartePageModule)
+  },
+  {
+    path: 'publier-annonce',
+    loadChildren: () => import('./pages/publier-annonce/publier-annonce.module').then( m => m.PublierAnnoncePageModule)
+  },
+  {
+    path: 'trouver-annonce',
+    loadChildren: () => import('./pages/trouver-annonce/trouver-annonce.module').then( m => m.TrouverAnnoncePageModule)
+  },
+  {
+    path: 'modal-creer-annonce',
+    loadChildren: () => import('./pages/modal-creer-annonce/modal-creer-annonce.module').then( m => m.ModalCreerAnnoncePageModule)
+  },
+  {
+    path: 'modal-creer-livreur',
+    loadChildren: () => import('./pages/modal-creer-livreur/modal-creer-livreur.module').then( m => m.ModalCreerLivreurPageModule)
+  },
+  {
+    path: 'geoloc',
+    loadChildren: () => import('./pages/geoloc/geoloc.module').then( m => m.GeolocPageModule)
   }
 ];
 

@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -52,7 +49,7 @@ export class HomePage {
   }
 
   openGeoloc(){
-    // this.navCtrl.push(GeolocPage);
+    this.router.navigate(['/geoloc']);
   }
 
   doRefresh(refresher) {
