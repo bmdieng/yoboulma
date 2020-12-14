@@ -73,6 +73,52 @@ export class LoginPage implements OnInit {
   register(){
     this.navCtrl.navigateForward('register');
   }
+
+  forgotPass(){
+
+    this.alertCtrl.create({
+        cssClass: 'my-custom-class',
+        header: APPLICATION_NAME,
+        inputs: [
+          {
+            name: 'email',
+            type: 'text',
+            placeholder: 'saisir votre adresse email'
+          },
+        ],
+        buttons: [
+          {
+            text: 'Annuler',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel');
+            }
+          }, {
+            text: 'Ok',
+            cssClass: 'danger',
+            handler: () => {
+              // console.log('Confirm Ok');
+              const loading = this.loadingCtrl.create();
+              loading.then(load => {
+                load.present();
+              });
+              this.authService.PasswordRecover(name).then( (res) =>{
+                loading.then(load => {
+                  load.dismiss();
+                });
+                this.showAlert('Un lien de réinitialisation du mot de passe a été envoyé à votre adresse adresse e-mail');
+
+              });
+            
+            }
+          }
+        ]
+      }).then(alert => {
+        alert.present();
+      });
+    }
+  
   
 
 }

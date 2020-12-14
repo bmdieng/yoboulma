@@ -29,7 +29,8 @@ import { Network } from '@ionic-native/network/ngx';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    SharedDirectivesModule
+    SharedDirectivesModule,
+    
   ],
   providers: [
     StatusBar,

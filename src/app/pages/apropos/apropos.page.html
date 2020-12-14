@@ -36,9 +36,9 @@
 
   </div>
 
-  <ion-fab center bottom>
-    <ion-button ion-fab (click)="envoyerEmail()" color="danger">
-      <ion-icon name="mail"></ion-icon>
-    </ion-button>
-  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <ion-fab-button (click)="envoyerEmail()" color="danger">
+        <ion-icon name="mail"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>

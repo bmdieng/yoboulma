@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="danger">
-    <ion-title>Créer une annonce</ion-title>
+    <ion-title>Publier une annonce</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -38,11 +38,11 @@
   
       <ion-item padding>
       
-        <button ion-button solid item-left (click)="annuler()" >
+        <ion-button ion-button solid item-left (click)="annuler()" >
           Annuler
-          </button>
-          <button ion-button solid item-right (click)="posterAnnonce(annonce)" color="danger">Ajouter annonce
-            </button>
+          </ion-button>
+          <ion-button ion-button solid item-right (click)="posterAnnonce(annonce)" color="danger">Ajouter annonce
+            </ion-button>
       </ion-item>
       </form>
   
