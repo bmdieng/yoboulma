@@ -18,7 +18,12 @@ color:#000;
 }
 
 .img{
-  width: 250px;
-  height: 50px;
-  padding: 1px 1px 1px 44px!important;
+  width: 235px;
+  height: 45px;
+  padding: 1px 1px 1px 50px !important;
+}
+
+.ion-text-wrap.sc-ion-label-md-h, [text-wrap].sc-ion-label-md-h {
+  white-space: normal;
+  padding: 10px;
 }

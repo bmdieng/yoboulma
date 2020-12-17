@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +22,6 @@ export class HomePage {
   }
 
   OnViewWillLoad(){
-    
   }
   
   getLivreurs(){
@@ -44,8 +43,12 @@ export class HomePage {
   }
 
   Consulter(livreur){
-    this.router.navigate(['/detail-livreur', livreur]);
-    
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        livreur: JSON.stringify(livreur)
+      }
+    };
+    this.router.navigate(['/detail-livreur', navigationExtras]);
   }
 
   openGeoloc(){

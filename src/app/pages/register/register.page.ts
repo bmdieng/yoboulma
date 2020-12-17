@@ -3,6 +3,7 @@ import { User } from "src/models/user";
 import { NavController, AlertController, LoadingController } from "@ionic/angular";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { APPLICATION_NAME } from 'src/app/constant';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: "app-register",
@@ -15,6 +16,7 @@ export class RegisterPage implements OnInit {
   constructor(public nav: NavController, 
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
+    public service : AuthenticationService,
     private fireAuth: AngularFireAuth) {}
 
   // register and go to home page
@@ -28,6 +30,7 @@ export class RegisterPage implements OnInit {
         user.email,
         user.password
       );
+      this.service.SendVerificationMail();
       console.log(res.user);
       loading.then(load => {
         load.dismiss();

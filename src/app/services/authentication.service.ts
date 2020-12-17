@@ -52,7 +52,7 @@ export class AuthenticationService {
   PasswordRecover(passwordResetEmail) {
     return this.ngFireAuth.auth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
-      window.alert('Password reset email has been sent, please check your inbox.');
+      // window.alert('Un lien de réinitialisation du mot de passe a été envoyé à votre adresse adresse e-mail');
     }).catch((error) => {
       window.alert(error)
     })

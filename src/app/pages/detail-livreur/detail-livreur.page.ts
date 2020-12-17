@@ -1,8 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController, AlertController, IonRouterOutlet } from "@ionic/angular";
+import {
+  NavController,
+  AlertController,
+  IonRouterOutlet
+} from "@ionic/angular";
 import { APPLICATION_NAME } from "src/app/constant";
-import { ActivatedRoute } from '@angular/router';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from "@angular/router";
+import { CallNumber } from "@ionic-native/call-number/ngx";
 
 @Component({
   selector: "app-detail-livreur",
@@ -17,14 +21,9 @@ export class DetailLivreurPage implements OnInit {
     public navCtrl: NavController,
     private callNumber: CallNumber,
     private alertCtrl: AlertController,
-    private routerOutlet: IonRouterOutlet,
     private activatedRoute: ActivatedRoute,
-  ) {
-    // this.livreur = this.activatedRoute.snapshot.paramMap.get(
-    //   "livreur"
-    // );
-    console.log(this.livreur);
-  }
+    public router: Router
+  ) {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad DetailLivreurPage");
@@ -60,7 +59,8 @@ export class DetailLivreurPage implements OnInit {
       });
   }
 
-
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.livreur = this.activatedRoute.snapshot.paramMap.get('livreur');
+    console.log("Détails du livreur : ",this.livreur);
+ }
 }

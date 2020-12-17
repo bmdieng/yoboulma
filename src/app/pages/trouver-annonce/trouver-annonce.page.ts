@@ -22,13 +22,10 @@ export class TrouverAnnoncePage implements OnInit {
   }
 
   ionViewDidLoad() {
-    
-    
   }
 
   ionViewWillLoad(){
   }
-
 
   async creerAnnonce(){
     const modal = await this.modalCtrl.create({
@@ -39,7 +36,7 @@ export class TrouverAnnoncePage implements OnInit {
     });
     return await modal.present();
 
-    }
+  }
 
   getLivreurs(){
     this.itemRef.on('value', itemSnapshot => {

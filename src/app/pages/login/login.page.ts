@@ -1,16 +1,18 @@
-import { Component,OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { User } from 'src/models/user';
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
-import { APPLICATION_NAME } from 'src/app/constant';
+import { Component, OnInit } from "@angular/core";
+import { AuthenticationService } from "src/app/services/authentication.service";
+import { User } from "src/models/user";
+import {
+  NavController,
+  AlertController,
+  LoadingController
+} from "@ionic/angular";
+import { APPLICATION_NAME } from "src/app/constant";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: "app-login",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"]
 })
-
 export class LoginPage implements OnInit {
   user = {} as User;
 
@@ -18,11 +20,11 @@ export class LoginPage implements OnInit {
     public authService: AuthenticationService,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
-
+    public loadingCtrl: LoadingController,
+    public service: AuthenticationService
   ) {
     this.user.email = "";
-    this.user.password= "";
+    this.user.password = "";
   }
 
   ngOnInit() {}
@@ -32,23 +34,31 @@ export class LoginPage implements OnInit {
     loading.then(load => {
       load.present();
     });
-    this.authService.SignIn(user.email, user.password)
-      .then((res) => {
+    this.authService
+      .SignIn(user.email, user.password)
+      .then(res => {
         loading.then(load => {
           load.dismiss();
         });
         if (res.user.uid) {
-          this.navCtrl.navigateRoot('home');       
+          if (res.user.emailVerified) {
+            this.navCtrl.navigateRoot("home");
+          } else {
+            this.showAlert(
+              "Merci de verifier que vous avez activé le compte. Un lien vous a été envoyé à linscription. Vous devez cliquer dessus pour l'activer"
+            );
+          }
         } else {
-        this.showAlert("l'utilisateur introuvable. Email ou mot de passe eronné, merci de verifier!");
+          this.showAlert("Email ou mot de passe eronné. mMrci de verifier!");
         }
-      }).catch((error) => {
+      })
+      .catch(error => {
         console.log(error);
         loading.then(load => {
           load.dismiss();
         });
         this.showAlert("Login ou mot de passe eronné, merci de verifier!");
-      })
+      });
   }
 
   showAlert(text) {
@@ -58,9 +68,8 @@ export class LoginPage implements OnInit {
         subHeader: text,
         buttons: [
           {
-            text: 'OK',
-            handler: () => {
-            }
+            text: "OK",
+            handler: () => {}
           }
         ]
         // enableBackdropDismiss: false
@@ -70,55 +79,55 @@ export class LoginPage implements OnInit {
       });
   }
 
-  register(){
-    this.navCtrl.navigateForward('register');
+  register() {
+    this.navCtrl.navigateForward("register");
   }
 
-  forgotPass(){
-
-    this.alertCtrl.create({
-        cssClass: 'my-custom-class',
+  forgotPass() {
+    this.alertCtrl
+      .create({
+        cssClass: "my-custom-class",
         header: APPLICATION_NAME,
         inputs: [
           {
-            name: 'email',
-            type: 'text',
-            placeholder: 'saisir votre adresse email'
-          },
+            name: "email",
+            type: "email",
+            placeholder: "saisir votre adresse email"
+          }
         ],
         buttons: [
           {
-            text: 'Annuler',
-            role: 'cancel',
-            cssClass: 'secondary',
+            text: "Annuler",
+            role: "cancel",
+            cssClass: "secondary",
             handler: () => {
-              console.log('Confirm Cancel');
+              console.log("Confirm Cancel");
             }
-          }, {
-            text: 'Ok',
-            cssClass: 'danger',
-            handler: () => {
+          },
+          {
+            text: "Ok",
+            cssClass: "danger",
+            handler: res => {
               // console.log('Confirm Ok');
               const loading = this.loadingCtrl.create();
               loading.then(load => {
                 load.present();
               });
-              this.authService.PasswordRecover(name).then( (res) =>{
+              this.service.PasswordRecover(res.email).then(res => {
                 loading.then(load => {
                   load.dismiss();
                 });
-                this.showAlert('Un lien de réinitialisation du mot de passe a été envoyé à votre adresse adresse e-mail');
-
+                this.showAlert(
+                  "Un lien de réinitialisation du mot de passe a été envoyé à votre adresse adresse e-mail"
+                );
               });
-            
             }
           }
         ]
-      }).then(alert => {
+      })
+      .then(alert => {
         alert.present();
       });
-    }
-  
-  
+  }
 
 }

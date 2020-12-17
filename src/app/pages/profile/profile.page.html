@@ -30,14 +30,14 @@
                   <ion-label floating style="color: #e0115f">
                     Prénom
                   </ion-label>
-                  <ion-input type="text" [(ngModel)]="profile.prenom" [ngModelOptions]="{standalone:
+                  <ion-input type="text" [(ngModel)]="profile.prenom" min="" max="5" [ngModelOptions]="{standalone:
                     true}"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label floating style="color: #e0115f">
                       Nom
                     </ion-label>
-                    <ion-input type="text" [(ngModel)]="profile.nom" [ngModelOptions]="{standalone:
+                    <ion-input type="text" [(ngModel)]="profile.nom" min="2" [ngModelOptions]="{standalone:
                       true}"></ion-input>
                   </ion-item>
                 <ion-item> 
@@ -51,7 +51,7 @@
               <ion-label floating style="color: #e0115f">
                 Adresse :
               </ion-label>
-              <ion-input type="text" [(ngModel)]="profile.adresse" [ngModelOptions]="{standalone:
+              <ion-input type="text" [(ngModel)]="profile.adresse" min="2" max="15" [ngModelOptions]="{standalone:
                     true}"></ion-input>
             </ion-item>
             <ion-item>
