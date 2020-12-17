@@ -23,7 +23,7 @@
   </ion-refresher>
 
   <ion-list *ngFor="let livreur of livreurs">
-    <ion-card [routerLink]="['/', 'detail-livreur', livreur]">
+    <ion-card (click)="consulter(livreur)">
 
       <ion-item>
         <ion-avatar item-start>
@@ -40,6 +40,7 @@
         <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
         <p><b><u>Description</u></b> : {{livreur.description}} </p>
       </ion-card-content>
+      <ion-grid>
       <ion-row>
         <ion-col size="6">
           <ion-button slot="end">
@@ -54,6 +55,7 @@
           </ion-button>
         </ion-col>
       </ion-row>
+    </ion-grid>
     </ion-card>
   </ion-list>
 

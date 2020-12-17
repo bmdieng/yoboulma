@@ -42,13 +42,8 @@ export class HomePage {
     return this.livreurs;
   }
 
-  Consulter(livreur){
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        livreur: JSON.stringify(livreur)
-      }
-    };
-    this.router.navigate(['/detail-livreur', navigationExtras]);
+  consulter(livreur){
+    this.router.navigate(['detail-livreur/', JSON.stringify(livreur)]);
   }
 
   openGeoloc(){

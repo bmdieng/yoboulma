@@ -5,7 +5,11 @@ import {
   IonRouterOutlet
 } from "@ionic/angular";
 import { APPLICATION_NAME } from "src/app/constant";
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from "@angular/router";
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router
+} from "@angular/router";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 
 @Component({
@@ -21,8 +25,7 @@ export class DetailLivreurPage implements OnInit {
     public navCtrl: NavController,
     private callNumber: CallNumber,
     private alertCtrl: AlertController,
-    private activatedRoute: ActivatedRoute,
-    public router: Router
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ionViewDidLoad() {
@@ -60,7 +63,8 @@ export class DetailLivreurPage implements OnInit {
   }
 
   ngOnInit() {
-    this.livreur = this.activatedRoute.snapshot.paramMap.get('livreur');
-    console.log("Détails du livreur : ",this.livreur);
- }
+    this.livreur = this.activatedRoute.snapshot.paramMap.get("data");
+    this.livreur = JSON.parse(this.livreur);
+    console.log("Détails du livreur : ", this.livreur);
+  }
 }

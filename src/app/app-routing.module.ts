@@ -29,7 +29,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mon-profile/mon-profile.module').then( m => m.MonProfilePageModule)
   },
   {
-    path: 'detail-livreur/:livreur',
+    path: 'detail-livreur/:data',
     loadChildren: () => import('./pages/detail-livreur/detail-livreur.module').then( m => m.DetailLivreurPageModule)
   },
   {
