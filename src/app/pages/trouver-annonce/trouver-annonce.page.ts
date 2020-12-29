@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { ModalController, LoadingController } from '@ionic/angular';
-import { CreerLivreurComponent } from 'src/app/creer-livreur/creer-livreur.component';
 import { Router } from '@angular/router';
+import { LivreurModalComponent } from 'src/app/components/livreur-modal/livreur-modal.component';
 
 
 
@@ -13,9 +13,8 @@ import { Router } from '@angular/router';
 })
 export class TrouverAnnoncePage implements OnInit {
 
-
-
   public livreurs: Array<any> = [];
+  tabDate: Array<any> = [];
   public itemRef: firebase.database.Reference = firebase.database().ref('/livreurs');
 
   constructor(public modalCtrl: ModalController,
@@ -32,14 +31,10 @@ export class TrouverAnnoncePage implements OnInit {
 
   async creerAnnonce(){
     console.log("Modal creerAnnonce ");
-    
     const modal = await this.modalCtrl.create({
-      component: CreerLivreurComponent,
-      // componentProps: {
-      //   'name': 'Nouvelle annonce'
-      // }
+      component: LivreurModalComponent
     });
-    return await modal.present();
+    await modal.present();
 
   }
 
@@ -51,8 +46,16 @@ export class TrouverAnnoncePage implements OnInit {
     this.itemRef.on('value', itemSnapshot => {
       this.livreurs = [];
       itemSnapshot.forEach( itemSnap => {
-        if (itemSnap.val().etat) {
-        this.livreurs.push(itemSnap.val()); 
+        var dateOne = new Date(); //Year, Month, Date    
+        var dateTwo = new Date(itemSnap.val().date);   
+        if (this.compare_dates(dateOne, dateTwo)) {
+          if (itemSnap.val().etat) {
+            var m = new Date(itemSnap.val().date);
+            var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+            console.log("date => ", dateString);
+            this.tabDate.push(dateString)
+            this.livreurs.push(itemSnap.val());   
+          }  
         }                 
       });
       console.log(this.livreurs);
@@ -77,6 +80,12 @@ export class TrouverAnnoncePage implements OnInit {
 
   consulter(livreur){
     this.router.navigate(['detail-livreur/', JSON.stringify(livreur)]);
+  }
+
+  compare_dates(date1,date2){
+    if (date1>date2) return false;
+  else if (date1<date2) return true;
+  else return true; 
   }
 
 }

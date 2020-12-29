@@ -4,6 +4,7 @@ export interface Annonce{
     depart:string;
     arrivee:string;
     date:string;
+    dateFin: string;
     telephone:string;
     description?:string;  
     etat?:boolean;  

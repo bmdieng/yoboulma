@@ -19,7 +19,9 @@ export class DetailAnnonceurPage implements OnInit {
     private callNumber: CallNumber,
     private alertCtrl: AlertController,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+
+  }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad DetailLivreurPage");
@@ -60,6 +62,9 @@ export class DetailAnnonceurPage implements OnInit {
   ngOnInit() {
     this.annonceur = this.activatedRoute.snapshot.paramMap.get("data");
     this.annonceur = JSON.parse(this.annonceur);
+    var m = new Date(this.annonceur.date);
+    var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+    console.log("date => ", dateString);
     console.log("Détails du livreur : ", this.annonceur);
   }
 }

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TrouverAnnoncePageRoutingModule } from './trouver-annonce-routing.module';
 import { TrouverAnnoncePage } from './trouver-annonce.page';
-import { CreerLivreurComponent } from 'src/app/creer-livreur/creer-livreur.component';
+import { LivreurModalComponent } from 'src/app/components/livreur-modal/livreur-modal.component';
 
 @NgModule({
   imports: [
@@ -13,9 +13,9 @@ import { CreerLivreurComponent } from 'src/app/creer-livreur/creer-livreur.compo
     IonicModule,
     TrouverAnnoncePageRoutingModule
   ],
-  declarations: [TrouverAnnoncePage, CreerLivreurComponent],
-  // entryComponents: [
-  //   CreerLivreurComponent
-  // ],
+  declarations: [TrouverAnnoncePage, LivreurModalComponent],
+  entryComponents: [
+    LivreurModalComponent
+  ],
 })
 export class TrouverAnnoncePageModule {}

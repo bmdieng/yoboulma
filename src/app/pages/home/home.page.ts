@@ -13,6 +13,7 @@ export class HomePage {
   public livreurs: Array<any> = [];
   public itemRef: firebase.database.Reference = firebase.database().ref('/livreurs');
   profileData: {};
+  tabDate: Array<any> = [];
 
   constructor(public navCtrl: NavController,
     public loadingCtrl: AlertController,
@@ -32,7 +33,17 @@ export class HomePage {
     this.itemRef.on('value', itemSnapshot => {
       this.livreurs = [];
       itemSnapshot.forEach( itemSnap => {
-        this.livreurs.push(itemSnap.val());                  
+        var dateOne = new Date(); //Year, Month, Date    
+        var dateTwo = new Date(itemSnap.val().date);   
+        if (this.compare_dates(dateOne, dateTwo)) {
+          if (itemSnap.val().etat) {
+            var m = new Date(itemSnap.val().date);
+            var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+            console.log("date => ", dateString);
+            this.tabDate.push(dateString)
+            this.livreurs.push(itemSnap.val());   
+          }  
+        }                 
       });
       console.log(this.livreurs);
     });
@@ -58,5 +69,12 @@ export class HomePage {
       refresher.complete();
     }, 1000);
   }
+
+  compare_dates(date1,date2){
+    if (date1>date2) return false;
+  else if (date1<date2) return true;
+  else return true; 
+  }
+
 
 }

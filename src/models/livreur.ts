@@ -1,4 +1,5 @@
 export interface Livreur{
+    titre:string;
     name:string;
     adresse:string;
     telephone:string;

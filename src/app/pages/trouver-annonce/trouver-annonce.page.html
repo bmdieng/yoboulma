@@ -15,7 +15,7 @@
           <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
   
-      <ion-list *ngFor="let livreur of livreurs">
+      <ion-list *ngFor="let livreur of livreurs; let i = index">
         <ion-card (click)="consulter(livreur)">
     
           <ion-item>
@@ -32,6 +32,7 @@
           <ion-card-content>
             <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
             <p><b><u>Description</u></b> : {{livreur.description}} </p>
+            <p><b><u>Date de fin</u></b> : {{ tabDate[i]}}</p>
           </ion-card-content>
         </ion-card>
       </ion-list>

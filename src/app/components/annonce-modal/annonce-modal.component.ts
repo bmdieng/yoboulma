@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APPLICATION_NAME } from '../constant';
+import { APPLICATION_NAME } from 'src/app/constant';
 import { Annonce } from 'src/models/annonce';
 import { NavController, ModalController, AlertController, NavParams } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -7,24 +7,26 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-creer-annonce',
-  templateUrl: './creer-annonce.component.html',
-  styleUrls: ['./creer-annonce.component.scss'],
+  selector: 'app-annonce-modal',
+  templateUrl: './annonce-modal.component.html',
+  styleUrls: ['./annonce-modal.component.scss'],
 })
-export class CreerAnnonceComponent implements OnInit {
+export class AnnonceModalComponent implements OnInit {
 
   annonce = {} as Annonce;
   profileData: any;
+  minDate: string;
 
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ModalController,
     private alertCtrl: AlertController,
     private aFireAuth: AngularFireAuth,
-    private storage: Storage,
     private aFireAuthDB: AngularFireDatabase,
     public navParams: NavParams
-  ) {}
+  ) {
+    this.minDate = new Date().toISOString();
+  }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad ModalCreerAnnoncePage");
@@ -56,8 +58,10 @@ export class CreerAnnonceComponent implements OnInit {
                   subHeader: "Annonce publiée avec succès!",
                   buttons: [
                     {
-                      text: "Quitter",
-                      handler: () => {}
+                      text: "OK",
+                      handler: () => {
+                        this.viewCtrl.dismiss();
+                      }
                     }
                   ]
                   // enableBackdropDismiss: false
@@ -71,4 +75,5 @@ export class CreerAnnonceComponent implements OnInit {
   }
 
   ngOnInit() {}
+
 }

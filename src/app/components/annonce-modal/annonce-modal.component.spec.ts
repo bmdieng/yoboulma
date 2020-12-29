@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CreerLivreurComponent } from './creer-livreur.component';
+import { AnnonceModalComponent } from './annonce-modal.component';
 
-describe('CreerLivreurComponent', () => {
-  let component: CreerLivreurComponent;
-  let fixture: ComponentFixture<CreerLivreurComponent>;
+describe('AnnonceModalComponent', () => {
+  let component: AnnonceModalComponent;
+  let fixture: ComponentFixture<AnnonceModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreerLivreurComponent ],
+      declarations: [ AnnonceModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreerLivreurComponent);
+    fixture = TestBed.createComponent(AnnonceModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,28 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { APPLICATION_NAME } from '../constant';
-import { take } from 'rxjs/operators';
 import { NavController, ModalController, AlertController, NavParams } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Livreur } from 'src/models/livreur';
+import { take } from 'rxjs/operators';
+import { APPLICATION_NAME } from 'src/app/constant';
 
 @Component({
-  selector: 'app-creer-livreur',
-  templateUrl: './creer-livreur.component.html',
-  styleUrls: ['./creer-livreur.component.scss'],
+  selector: 'app-livreur-modal',
+  templateUrl: './livreur-modal.component.html',
+  styleUrls: ['./livreur-modal.component.scss'],
 })
-export class CreerLivreurComponent implements OnInit {
+export class LivreurModalComponent implements OnInit {
 
   lat: any;
   lng: any;
   profileData: any;
+  livreur= {} as Livreur;
 
   constructor(public navCtrl: NavController, 
     public viewCtrl: ModalController,  
     private alertCtrl: AlertController,
     private aFireAuth: AngularFireAuth,
     private aFireAuthDB : AngularFireDatabase,
-    private geolocation: Geolocation,
+    // private geolocation: Geolocation,
     public navParams: NavParams) {
       // this.geolocation.getCurrentPosition().then((resp) => {
       //    this.lat = resp.coords.latitude;
@@ -41,11 +42,11 @@ export class CreerLivreurComponent implements OnInit {
   
     posterAnnonce(livreur: Livreur){
       livreur.etat = true;    
-      livreur.lat = this.lat;
-      livreur.lng  = this.lng;
-      console.log(this.lat, this.lng);
-      
-         
+      // livreur.lat = this.lat;
+      // livreur.lng  = this.lng;
+      // console.log(this.lat, this.lng);
+
+      livreur.date = new Date().toISOString();
       this.aFireAuth.authState.pipe(take(1)).subscribe(auth => {
         //  RECUPERATION DU PRENOM ET DU NOM DE L'UTILISATEUR
         this.aFireAuthDB.object('profile/'+auth.uid).valueChanges().subscribe(val => {
@@ -60,8 +61,10 @@ export class CreerLivreurComponent implements OnInit {
                   subHeader: "Offre de livraison ajoutée avec succès!",
                   buttons: [
                     {
-                      text: "Quitter",
-                      handler: () => {}
+                      text: "OK",
+                      handler: () => {
+                        this.viewCtrl.dismiss();
+                      }
                     }
                   ]
                   // enableBackdropDismiss: false
@@ -78,11 +81,10 @@ export class CreerLivreurComponent implements OnInit {
       
   
     }
-  livreur(livreur: any): any {
-    throw new Error("Method not implemented.");
-  }
+
 
   ngOnInit() {
   }
+
 
 }

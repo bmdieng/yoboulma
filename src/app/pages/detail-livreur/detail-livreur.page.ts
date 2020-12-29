@@ -65,6 +65,9 @@ export class DetailLivreurPage implements OnInit {
   ngOnInit() {
     this.livreur = this.activatedRoute.snapshot.paramMap.get("data");
     this.livreur = JSON.parse(this.livreur);
+    var m = new Date(this.livreur.date);
+    var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+    console.log("date => ", dateString);
     console.log("Détails du livreur : ", this.livreur);
   }
 

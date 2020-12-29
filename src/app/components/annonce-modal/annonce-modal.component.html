@@ -1,0 +1,54 @@
+  <ion-header>
+      <ion-toolbar color="danger">
+          <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+        <ion-title>
+            Publier une annonce
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+  
+    <ion-content padding class="Menu">
+      <ion-card>
+      <ion-card-header style="text-align:justify; padding:3px;margin: 4px;font-size:20px;font-family: Arial; color:danger">Nouvelle annonce
+      </ion-card-header>
+         <form style="text-align:justify; padding:3px;margin: 4px;font-size:20px;font-family: Arial; color: #ccc">
+          <ion-item>
+            <ion-label>Titre</ion-label>
+            <ion-input type="text" [(ngModel)]="annonce.titre" name="titre"></ion-input>
+          </ion-item>
+           <ion-item>
+            <ion-label>Départ</ion-label>
+            <ion-input type="text" [(ngModel)]="annonce.depart" name="depart"></ion-input>
+          </ion-item>
+           <ion-item>
+            <ion-label>Arrivée</ion-label>
+            <ion-input type="text" [(ngModel)]="annonce.arrivee" name="arrivee"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="annonce.date" [min]="minDate" max="2099-12-31" name="date"></ion-datetime>
+          </ion-item>
+           <ion-item>
+            <ion-label>Téléphone</ion-label>
+            <ion-input type="tel" [(ngModel)]="annonce.telephone" name="telephone"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Description</ion-label>
+            <ion-textarea [(ngModel)]="annonce.description" name="description"></ion-textarea>
+          </ion-item>
+    
+        <ion-item padding>
+        
+          <ion-button shape="block" size="default" (click)="annuler()" >
+            Annuler
+            </ion-button>
+            <ion-button shape="block" size="default" (click)="posterAnnonce(annonce)" color="danger">Publier
+              </ion-button>
+        </ion-item>
+        </form>
+    
+      </ion-card>
+    
+    </ion-content>

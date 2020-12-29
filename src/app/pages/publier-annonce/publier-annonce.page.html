@@ -15,7 +15,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list *ngFor="let annonce of annonces" >
+  <ion-list *ngFor="let annonce of annonces; let i = index" >
     <ion-card (click)="consulter(annonce)">
       <ion-item>
         <ion-avatar item-start>
@@ -32,6 +32,7 @@
           <p><b style="color:#e0115f">Départ</b> : {{annonce?.depart}}</p>
           <p><b style="color:#e0115f">Arrivée</b> : {{annonce?.arrivee}}</p>
           <p><b style="color:#e0115f">Description</b> : {{annonce?.description}}</p>
+          <p><b style="color:#e0115f">Date de fin</b> : {{ tabDate[i]}}</p>
       </ion-card-content>
     </ion-card>
 

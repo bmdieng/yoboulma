@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import * as firebase from 'firebase';
 import { ModalController, LoadingController } from '@ionic/angular';
-import { CreerAnnonceComponent } from 'src/app/creer-annonce/creer-annonce.component';
 import { Router } from '@angular/router';
+import { AnnonceModalComponent } from 'src/app/components/annonce-modal/annonce-modal.component';
 
 @Component({
   selector: 'app-publier-annonce',
@@ -14,6 +14,7 @@ export class PublierAnnoncePage implements OnInit {
 
   public annonces: Array<any> = [];
   public itemRef: firebase.database.Reference = firebase.database().ref('/annonces');
+  tabDate: Array<any> = [];
 
   constructor(public modalCtrl: ModalController,
     public router: Router,
@@ -24,17 +25,12 @@ export class PublierAnnoncePage implements OnInit {
   ngOnInit() {
   }
 
-
   async creerAnnonce(){
     console.log("Modal creerAnnonce : ");
-    
     const modal = await this.modalCtrl.create({
-      component: CreerAnnonceComponent,
-      // componentProps: {
-      //   'name': 'Nouvelle annonce'
-      // }
+      component: AnnonceModalComponent
     });
-    return await modal.present();
+    await modal.present();
   }
 
 getAnnonces(){
@@ -45,10 +41,17 @@ getAnnonces(){
   this.itemRef.on('value', itemSnapshot => {
     this.annonces = [];
     itemSnapshot.forEach( itemSnap => {
-      if (itemSnap.val().etat) {
-        this.annonces.push(itemSnap.val());   
-        
-      }               
+      var dateOne = new Date(); //Year, Month, Date    
+      var dateTwo = new Date(itemSnap.val().date);   
+      if (this.compare_dates(dateOne, dateTwo)) {
+        if (itemSnap.val().etat) {
+          var m = new Date(itemSnap.val().date);
+          var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+          console.log("date => ", dateString);
+          this.tabDate.push(dateString)
+          this.annonces.push(itemSnap.val());   
+        }  
+      }            
     });
     console.log(this.annonces);
   });
@@ -69,6 +72,12 @@ doRefresh(refresher) {
     console.log('Async operation has ended');
     refresher.complete();
   }, 1000);
+}
+
+compare_dates(date1,date2){
+  if (date1>date2) return false;
+else if (date1<date2) return true;
+else return true; 
 }
 
 }
