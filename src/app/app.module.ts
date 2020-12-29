@@ -41,6 +41,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
     Geolocation,
     EmailComposer,
     Network,
+    Storage,
     CallNumber,
     FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

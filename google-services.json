@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:958438648451:android:fbd5940a6296703b1e49b6",
+        "mobilesdk_app_id": "1:958438648451:android:ee3cd8d0c914768a1e49b6",
         "android_client_info": {
-          "package_name": "sn.digitprest.co"
+          "package_name": "sn.yoboulma.digitprest.co"
         }
       },
       "oauth_client": [

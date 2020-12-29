@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, NavParams, ModalController } from '@ionic/angular';
-import { ViewController } from '@ionic/core';
+import { APPLICATION_NAME } from '../constant';
+import { take } from 'rxjs/operators';
+import { NavController, ModalController, AlertController, NavParams } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Livreur } from 'src/models/livreur';
-import { take } from 'rxjs/operators';
-import { APPLICATION_NAME } from 'src/app/constant';
 
 @Component({
-  selector: 'app-modal-creer-livreur',
-  templateUrl: './modal-creer-livreur.page.html',
-  styleUrls: ['./modal-creer-livreur.page.scss'],
+  selector: 'app-creer-livreur',
+  templateUrl: './creer-livreur.component.html',
+  styleUrls: ['./creer-livreur.component.scss'],
 })
-export class ModalCreerLivreurPage implements OnInit {
+export class CreerLivreurComponent implements OnInit {
+
   lat: any;
   lng: any;
   profileData: any;

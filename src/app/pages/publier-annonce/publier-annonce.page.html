@@ -1,38 +1,46 @@
 <ion-header>
-    <ion-toolbar color="danger">
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-      <ion-title>
-          Consulter les annonces
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Consulter les annonces
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 
-<ion-content padding class="Menu">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+<ion-content padding class="Menu" style="margin: 0px 0px 80px 0px">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-  <ion-list *ngFor="let annonce of annonces">
-    <ion-item (click)="Consulter()">
-      <h1>{{annonce?.auteur}}</h1>
-      <h2>{{annonce?.titre}}</h2>
-      <h2>Départ : <ion-icon name="arrow-round-forward" item-start large style="color:#e0115f"></ion-icon>
-        {{annonce?.depart}}</h2>
-      <h2>Arrivée : <ion-icon name="arrow-round-back" item-start large color="primary"></ion-icon>
-        {{annonce?.arrivee}}</h2>
-      <h2>Description : </h2> 
-      <span>{{annonce?.description}}</span>
-      <button ion-button clear item-end >Voir</button>
-  </ion-item>
+  <ion-list *ngFor="let annonce of annonces" >
+    <ion-card (click)="consulter(annonce)">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/img/profile.png" alt="Yoboulma">
+        </ion-avatar>
+        <ion-label class="ion-text-wrap text_space">
+          <ion-text color="primary">
+            <h3 style="color:#e0115f">{{annonce?.auteur}}</h3>
+          </ion-text>
+          <p>{{annonce?.titre}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-card-content>
+          <p><b style="color:#e0115f">Départ</b> : {{annonce?.depart}}</p>
+          <p><b style="color:#e0115f">Arrivée</b> : {{annonce?.arrivee}}</p>
+          <p><b style="color:#e0115f">Description</b> : {{annonce?.description}}</p>
+      </ion-card-content>
+    </ion-card>
+
   </ion-list>
-  
-  <ion-fab center bottom >
-    <ion-button ion-fab (click)="creerAnnonce()" color="danger">
-      <ion-icon name="add"></ion-icon>
-    </ion-button>
-  </ion-fab>
-</ion-content>
 
+  <ion-fab vertical="bottom" style="color:#e0115f" horizontal="end" slot="fixed" (click)="creerAnnonce()">
+    <ion-fab-button color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

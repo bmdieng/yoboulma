@@ -1,0 +1,18 @@
+.button-native {
+    padding-left: unset;
+    padding-right: unset;
+    padding-inline-start: var(--padding-start);
+    padding-inline-end: var(--padding-end);
+    background: #e0115f;
+}
+
+.img {
+    display: block;
+    width: 60%;
+    margin: 5% 20% 0% 20%;
+    height: 100%;
+    -o-object-fit: inherit;
+    object-fit: inherit;
+    -o-object-position: inherit;
+    object-position: inherit;
+}

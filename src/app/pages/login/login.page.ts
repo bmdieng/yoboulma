@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   login(user: User) {
-    const loading = this.loadingCtrl.create();
+    const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
     loading.then(load => {
       load.present();
     });

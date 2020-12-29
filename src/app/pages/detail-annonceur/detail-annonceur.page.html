@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button style="color:#e0115f"></ion-back-button>
+      </ion-buttons>
+      <ion-title>information de l'annonceur</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding class="Menu">
+  
+  
+    <ion-card>
+      <ion-img class="img" src="assets/img/profile.png"></ion-img>
+      <ion-card-content>
+        <ion-card-header>
+          <ion-card-subtitle>{{annonceur?.auteur}}</ion-card-subtitle>
+          <ion-card-title>{{annonceur?.titre}}</ion-card-title>
+        </ion-card-header>
+        <p><b><u>Départ</u></b> : {{annonceur.dispo}}</p>
+        <p><b><u>Arrivee</u></b> : {{annonceur.description}} </p>
+        <p><b><u>Adresse</u></b> : {{annonceur?.adresse}} </p>
+        <p><b><u>Date de publication</u></b> : {{annonceur?.date}} </p>
+        <p><b><u>Description</u></b> : {{annonceur?.description}} </p>
+  
+  
+      </ion-card-content>
+  
+    </ion-card>
+    <ion-fab vertical="bottom" style="color:#e0115f" horizontal="center" slot="fixed" (click)="callLivreur()" >
+      <ion-fab-button color="danger" >
+        <ion-icon name="call"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>

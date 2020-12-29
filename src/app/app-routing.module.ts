@@ -56,17 +56,21 @@ const routes: Routes = [
     path: 'trouver-annonce',
     loadChildren: () => import('./pages/trouver-annonce/trouver-annonce.module').then( m => m.TrouverAnnoncePageModule)
   },
-  {
-    path: 'modal-creer-annonce',
-    loadChildren: () => import('./pages/modal-creer-annonce/modal-creer-annonce.module').then( m => m.ModalCreerAnnoncePageModule)
-  },
-  {
-    path: 'modal-creer-livreur',
-    loadChildren: () => import('./pages/modal-creer-livreur/modal-creer-livreur.module').then( m => m.ModalCreerLivreurPageModule)
-  },
+  // {
+  //   path: 'modal-creer-annonce',
+  //   loadChildren: () => import('./pages/modal-creer-annonce/modal-creer-annonce.module').then( m => m.ModalCreerAnnoncePageModule)
+  // },
+  // {
+  //   path: 'modal-creer-livreur',
+  //   loadChildren: () => import('./pages/modal-creer-livreur/modal-creer-livreur.module').then( m => m.ModalCreerLivreurPageModule)
+  // },
   {
     path: 'geoloc',
     loadChildren: () => import('./pages/geoloc/geoloc.module').then( m => m.GeolocPageModule)
+  },
+  {
+    path: 'detail-annonceur/:data',
+    loadChildren: () => import('./pages/detail-annonceur/detail-annonceur.module').then( m => m.DetailAnnonceurPageModule)
   }
 ];
 

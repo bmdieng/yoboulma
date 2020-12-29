@@ -1,23 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { Annonce } from "src/models/annonce";
-import {
-  NavController,
-  AlertController,
-  NavParams,
-  ModalController
-} from "@ionic/angular";
-import { ViewController } from "@ionic/core";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFireDatabase } from "@angular/fire/database";
-import { take } from "rxjs/operators";
-import { APPLICATION_NAME } from "src/app/constant";
+import { Component, OnInit } from '@angular/core';
+import { APPLICATION_NAME } from '../constant';
+import { Annonce } from 'src/models/annonce';
+import { NavController, ModalController, AlertController, NavParams } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { take } from 'rxjs/operators';
 
 @Component({
-  selector: "app-modal-creer-annonce",
-  templateUrl: "./modal-creer-annonce.page.html",
-  styleUrls: ["./modal-creer-annonce.page.scss"]
+  selector: 'app-creer-annonce',
+  templateUrl: './creer-annonce.component.html',
+  styleUrls: ['./creer-annonce.component.scss'],
 })
-export class ModalCreerAnnoncePage implements OnInit {
+export class CreerAnnonceComponent implements OnInit {
+
   annonce = {} as Annonce;
   profileData: any;
 

@@ -29,14 +29,6 @@ ion-content {
     --background: url('/assets/img/background.jpg') no-repeat center/cover fixed;
   }
 
-  ion-spinner {
-    * {
-      stroke: #e0115f;
-    }
-
-    &.spinner-circles circle,
-    &.spinner-bubbles circle,
-    &.spinner-dots circle {
-      fill: #e0115f;
-    }
+  .my-custom-class {
+    color:  #e0115f;;
   }

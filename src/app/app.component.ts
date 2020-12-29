@@ -75,12 +75,12 @@ export class AppComponent {
 
       // get FCM token
       this.fcm.getToken().then(token => {
-        console.log(token);
+        console.log("getToken =>",token);
       });
 
       // ionic push notification example
       this.fcm.onNotification().subscribe(data => {
-        console.log(data);
+        console.log("onNotification =>",data);
         if (data.wasTapped) {
           console.log('Received in background');
         } else {
@@ -90,7 +90,7 @@ export class AppComponent {
 
       // refresh the FCM token
       this.fcm.onTokenRefresh().subscribe(token => {
-        console.log(token);
+        console.log("onTokenRefresh", token);
       });
     });
   }

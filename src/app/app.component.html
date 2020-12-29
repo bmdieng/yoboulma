@@ -6,7 +6,7 @@
         <div class="card-align">
             <ion-list-header>
                 <ion-avatar item-start>
-                  <img src="assets/img/no_body.jpg">
+                  <img src="assets/img/profile.png">
                 </ion-avatar>
               </ion-list-header><br />
               <ion-note>{{profileData?.prenom}} {{profileData?.nom}} </ion-note>
@@ -14,8 +14,6 @@
 
         <div class="main">
           <ion-list id="inbox-list">
-            
-
             <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
               <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none"
                 detail="false" [class.selected]="selectedIndex == i">

@@ -17,8 +17,6 @@
   </div>
 
   <div class="main">
-
-
     <ion-card>
       <ion-card-content>
         <ion-card-title>
@@ -27,11 +25,19 @@
         <ion-item>
           <ion-icon name="pin" item-start large style="color:#e0115f"></ion-icon>
           <h2>{{profileData?.adresse}} </h2>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="call" item-start large style="color:#e0115f"></ion-icon>
           <p>Téléphone : {{profileData?.tel}}</p>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="mail" item-start large style="color:#e0115f"></ion-icon>
           <p>Email : {{profileData?.email}}</p>
         </ion-item>
       </ion-card-content>
     </ion-card>
+
+   
   </div>
 
 </ion-content>

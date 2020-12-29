@@ -26,18 +26,18 @@
           
                 <ion-item>
                   <ion-label floating style="color: #e0115f">
-                    Password
+                    Mot de passe
                   </ion-label>
                   <ion-input type="password" [(ngModel)]="user.password" name="last"></ion-input>
                 </ion-item>
               </form>
 
-              <ion-button shape="block" size="default" (click)="login(user)" color="danger">
+              <ion-button shape="block" size="large" (click)="login(user)" color="danger">
                   <ion-icon slot="start" name="log-in"></ion-icon>
                   Se connecter
               </ion-button>
           
-              <ion-button shape="block" size="default" (click)="register()" color="warning">
+              <ion-button shape="block" size="large" (click)="register()" color="warning">
                   <span ion-text tappable  style="color: #e0115f">Nouveau?
                       <strong><u>S'inscrire</u></strong></span>
               </ion-button>
@@ -50,11 +50,11 @@
 
   </div>
 </ion-content>
-<ion-footer style="text-align: center" no-border *ngIf="!isKeyboardOpen">
+<!-- <ion-footer style="text-align: center" no-border *ngIf="!isKeyboardOpen">
   <ion-toolbar transparent>
     <ion-title>
         <span style="color:#e0115f; text-align: center; font-family:'Arial';">By DigitPrest Consulting
         </span>® 2020
     </ion-title>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

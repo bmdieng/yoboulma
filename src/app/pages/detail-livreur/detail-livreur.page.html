@@ -21,15 +21,13 @@
       <p><b><u>Description</u></b> : {{livreur.description}} </p>
       <p><b><u>adresse</u></b> : {{livreur?.adresse}} </p>
 
-      <ion-item>
-        <ion-button slot="end" style="color:#e0115f" (click)="callLivreur">Appeler :
-          <ion-icon name="call" item-start large style="color:#e0115f" slot="star"></ion-icon>
-          {{livreur?.telephone}}
-        </ion-button>
-      </ion-item>
 
     </ion-card-content>
 
   </ion-card>
-
+  <ion-fab vertical="bottom" style="color:#e0115f" horizontal="center" slot="fixed" (click)="callLivreur()">
+    <ion-fab-button color="danger" >
+      <ion-icon name="call"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

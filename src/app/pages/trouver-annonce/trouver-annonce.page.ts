@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-import { ModalController } from '@ionic/angular';
-import { ModalCreerLivreurPage } from '../modal-creer-livreur/modal-creer-livreur.page';
+import { ModalController, LoadingController } from '@ionic/angular';
+import { CreerLivreurComponent } from 'src/app/creer-livreur/creer-livreur.component';
+import { Router } from '@angular/router';
 
 
 
@@ -17,7 +18,9 @@ export class TrouverAnnoncePage implements OnInit {
   public livreurs: Array<any> = [];
   public itemRef: firebase.database.Reference = firebase.database().ref('/livreurs');
 
-  constructor(public modalCtrl: ModalController) {   
+  constructor(public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController,
+    public router: Router) {   
      this.getLivreurs();
   }
 
@@ -28,23 +31,34 @@ export class TrouverAnnoncePage implements OnInit {
   }
 
   async creerAnnonce(){
+    console.log("Modal creerAnnonce ");
+    
     const modal = await this.modalCtrl.create({
-      component: ModalCreerLivreurPage,
-      componentProps: {
-        'name': 'Nouvelle annonce'
-      }
+      component: CreerLivreurComponent,
+      // componentProps: {
+      //   'name': 'Nouvelle annonce'
+      // }
     });
     return await modal.present();
 
   }
 
   getLivreurs(){
+    const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
+    loading.then(load => {
+      load.present();
+    });
     this.itemRef.on('value', itemSnapshot => {
       this.livreurs = [];
       itemSnapshot.forEach( itemSnap => {
-        this.livreurs.push(itemSnap.val());                  
+        if (itemSnap.val().etat) {
+        this.livreurs.push(itemSnap.val()); 
+        }                 
       });
       console.log(this.livreurs);
+    });
+    loading.then(load => {
+      load.dismiss();
     });
     return this.livreurs;
   }
@@ -59,6 +73,10 @@ export class TrouverAnnoncePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  consulter(livreur){
+    this.router.navigate(['detail-livreur/', JSON.stringify(livreur)]);
   }
 
 }

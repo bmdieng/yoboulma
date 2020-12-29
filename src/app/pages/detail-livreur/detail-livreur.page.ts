@@ -2,13 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import {
   NavController,
   AlertController,
-  IonRouterOutlet
+  AnimationController
 } from "@ionic/angular";
 import { APPLICATION_NAME } from "src/app/constant";
 import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Router
+  ActivatedRoute
 } from "@angular/router";
 import { CallNumber } from "@ionic-native/call-number/ngx";
 
@@ -25,14 +23,16 @@ export class DetailLivreurPage implements OnInit {
     public navCtrl: NavController,
     private callNumber: CallNumber,
     private alertCtrl: AlertController,
+    private animation: AnimationController,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad DetailLivreurPage");
+   
   }
 
   callLivreur() {
+    console.log("Appeler le livreur : ", this.livreur.name);
     this.alertCtrl
       .create({
         header: APPLICATION_NAME,
@@ -47,7 +47,7 @@ export class DetailLivreurPage implements OnInit {
             }
           },
           {
-            text: "Envoyer",
+            text: "Appeler",
             handler: () => {
               this.callNumber
                 .callNumber("" + this.livreur.telephone, true)
@@ -67,4 +67,5 @@ export class DetailLivreurPage implements OnInit {
     this.livreur = JSON.parse(this.livreur);
     console.log("Détails du livreur : ", this.livreur);
   }
+
 }
