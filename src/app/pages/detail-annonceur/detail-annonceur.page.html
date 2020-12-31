@@ -8,8 +8,6 @@
   </ion-header>
   
   <ion-content padding class="Menu">
-  
-  
     <ion-card>
       <ion-img class="img" src="assets/img/profile.png"></ion-img>
       <ion-card-content>
@@ -17,15 +15,11 @@
           <ion-card-subtitle>{{annonceur?.auteur}}</ion-card-subtitle>
           <ion-card-title>{{annonceur?.titre}}</ion-card-title>
         </ion-card-header>
-        <p><b><u>Départ</u></b> : {{annonceur.dispo}}</p>
-        <p><b><u>Arrivee</u></b> : {{annonceur.description}} </p>
-        <p><b><u>Adresse</u></b> : {{annonceur?.adresse}} </p>
+        <p><b><u>Départ</u></b> : {{annonceur.depart}}</p>
+        <p><b><u>Arrivee</u></b> : {{annonceur.arrivee}} </p>
         <p><b><u>Date de fin</u></b> : {{dateString}} </p>
         <p><b><u>Description</u></b> : {{annonceur?.description}} </p>
-  
-  
       </ion-card-content>
-  
     </ion-card>
     <ion-fab vertical="bottom" style="color:#e0115f" horizontal="center" slot="fixed" (click)="callLivreur()" >
       <ion-fab-button color="danger" >

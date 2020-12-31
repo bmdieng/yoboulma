@@ -7,6 +7,9 @@
     <img class="img" src="assets/icon/Yoboulma.png" alt="Yoboulma">
     <ion-title></ion-title>
     <ion-buttons slot="primary" style="color: transparent">
+        <ion-button (click)="shareApp()">
+            <ion-icon slot="end" name="share-social-outline" style="color:#e0115f"></ion-icon>
+          </ion-button>
       <ion-button (click)="openGeoloc()">
         <ion-icon slot="end" name="navigate" style="color:#e0115f"></ion-icon>
       </ion-button>
@@ -15,35 +18,87 @@
 </ion-header>
 
 <ion-content padding class="menu">
-  <ion-label>
-    <ion-searchbar (click)="getItems($event)" placeholder="trouve un livreur"></ion-searchbar>
-  </ion-label>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
-  <ion-list *ngFor="let livreur of livreurs; let i = index">
-    <ion-card (click)="consulter(livreur)">
-
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="assets/imgs/scooter.png" alt="Yoboulma">
-        </ion-avatar>
-        <ion-label class="ion-text-wrap">
-          <ion-text color="primary">
-            <h3 style="color:#e0115f">{{livreur?.name}}</h3>
-          </ion-text>
-          <p>{{livreur?.titre}}</p>
-        </ion-label>
-      </ion-item>
-      <ion-card-content>
-        <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
-        <p><b><u>Description</u></b> : {{livreur.description}} </p>
-        <p><b><u>Date de fin</u></b> : {{ tabDate[i]}}</p>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+    <ion-content>
+          <ion-segment color="danger" (ionChange)="segmentChanged()" [(ngModel)]="segment">
+              <ion-segment-button value="0">
+                  Offres de laivraion
+              </ion-segment-button>
+              <ion-segment-button value="1">
+                  Recherche de livreurs
+              </ion-segment-button>
+            </ion-segment>
 
 
+        <ion-slides  #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
+          <ion-slide>
+            
+            <div>
+                <h4 style="color:#e0115f">Offres de laivraion disponibles</h4>
+            <ion-label>
+                <ion-searchbar (click)="getItems($event)" placeholder="trouve un livreur"></ion-searchbar>
+              </ion-label>
+              <ion-refresher (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+              </ion-refresher>
+            
+              <ion-list *ngFor="let livreur of livreurs; let i = index">
+                <ion-card (click)="consulter(livreur)">
+                  <ion-item>
+                    <ion-avatar item-start>
+                      <img src="assets/imgs/scooter.png" alt="Yoboulma">
+                    </ion-avatar>
+                    <ion-label class="ion-text-wrap">
+                      <ion-text color="primary">
+                        <h3 style="color:#e0115f">{{livreur?.name}}</h3>
+                      </ion-text>
+                      <p>{{livreur?.titre}}</p>
+                    </ion-label>
+                  </ion-item>
+                  <ion-card-content>
+                    <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
+                    <p><b><u>Description</u></b> : {{livreur.description}} </p>
+                    <p><b><u>Date de fin</u></b> : {{ tabDate[i]}}</p>
+                  </ion-card-content>
+                </ion-card>
+              </ion-list>
+            </div>
+          </ion-slide>
+          <ion-slide>
+             
+            <div>
+                <h4 style="color:#e0115f">Annonces de recherche de livreurs</h4>
+              <ion-label>
+                  <ion-searchbar (click)="getItems($event)" placeholder="trouve un livreur"></ion-searchbar>
+                </ion-label>
+                <ion-refresher (ionRefresh)="doRefresh($event)">
+                  <ion-refresher-content></ion-refresher-content>
+                </ion-refresher>
+              
+                <ion-list *ngFor="let livreur of livreurs; let i = index">
+                  <ion-card (click)="consulter(livreur)">
+                    <ion-item>
+                      <ion-avatar item-start>
+                        <img src="assets/imgs/scooter.png" alt="Yoboulma">
+                      </ion-avatar>
+                      <ion-label class="ion-text-wrap">
+                        <ion-text color="primary">
+                          <h3 style="color:#e0115f">{{livreur?.name}}</h3>
+                        </ion-text>
+                        <p>{{livreur?.titre}}</p>
+                      </ion-label>
+                    </ion-item>
+                    <ion-card-content>
+                      <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
+                      <p><b><u>Description</u></b> : {{livreur.description}} </p>
+                      <p><b><u>Date de fin</u></b> : {{ tabDate[i]}}</p>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-list>
+              </div>
+          </ion-slide>
+        </ion-slides>
+      </ion-content>
 
+
+  
 </ion-content>

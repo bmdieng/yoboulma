@@ -13,6 +13,7 @@ export class DetailAnnonceurPage implements OnInit {
 
   annonceur: any;
   sub: any;
+  dateString: string
 
   constructor(
     public navCtrl: NavController,
@@ -63,8 +64,8 @@ export class DetailAnnonceurPage implements OnInit {
     this.annonceur = this.activatedRoute.snapshot.paramMap.get("data");
     this.annonceur = JSON.parse(this.annonceur);
     var m = new Date(this.annonceur.date);
-    var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
-    console.log("date => ", dateString);
+    this.dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+    console.log("date => ", this.dateString);
     console.log("Détails du livreur : ", this.annonceur);
   }
 }

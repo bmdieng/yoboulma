@@ -130,3 +130,25 @@ ion-menu ion-content {
 ion-menu.md[_ngcontent-cub-c132] ion-list-header[_ngcontent-cub-c132], ion-menu.md[_ngcontent-cub-c132] ion-note[_ngcontent-cub-c132] {
   padding-left: 0px;
 }
+
+ion-footer {
+  display: block;
+  position: relative;
+  -ms-flex-order: 1;
+  order: 1;
+  width: 100%;
+  text-align: center;
+  height: 13%;
+  padding: 40px;
+  z-index: 10;
+  background: transparent;
+}
+
+.swiper-pagination-bullet-active {
+  background: #e0115f;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 4px;
+  background: #e0115f !important;
+}

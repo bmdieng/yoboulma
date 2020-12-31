@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -18,6 +18,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 // FCM
 import { FCM } from '@ionic-native/fcm/ngx';
 
@@ -41,7 +42,8 @@ import { FCM } from '@ionic-native/fcm/ngx';
     Geolocation,
     EmailComposer,
     Network,
-    Storage,
+    NativeStorage,
+    SocialSharing,
     CallNumber,
     FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

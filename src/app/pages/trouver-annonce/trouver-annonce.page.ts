@@ -47,8 +47,8 @@ export class TrouverAnnoncePage implements OnInit {
       this.livreurs = [];
       itemSnapshot.forEach( itemSnap => {
         var dateOne = new Date(); //Year, Month, Date    
-        var dateTwo = new Date(itemSnap.val().date);   
-        if (this.compare_dates(dateOne, dateTwo)) {
+        // var dateTwo = new Date(itemSnap.val().date);   
+        // if (this.compare_dates(dateOne, dateTwo)) {
           if (itemSnap.val().etat) {
             var m = new Date(itemSnap.val().date);
             var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
@@ -56,7 +56,7 @@ export class TrouverAnnoncePage implements OnInit {
             this.tabDate.push(dateString)
             this.livreurs.push(itemSnap.val());   
           }  
-        }                 
+        // }                 
       });
       console.log(this.livreurs);
     });

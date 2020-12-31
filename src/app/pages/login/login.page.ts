@@ -7,6 +7,10 @@ import {
   LoadingController
 } from "@ionic/angular";
 import { APPLICATION_NAME } from "src/app/constant";
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { take } from 'rxjs/operators';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: "app-login",
@@ -15,13 +19,17 @@ import { APPLICATION_NAME } from "src/app/constant";
 })
 export class LoginPage implements OnInit {
   user = {} as User;
+  profileData: any;
 
   constructor(
     public authService: AuthenticationService,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    public service: AuthenticationService
+    public service: AuthenticationService,
+    private storage: NativeStorage,
+    private aFireAuth: AngularFireAuth,
+    private aFireAuthDB : AngularFireDatabase
   ) {
     this.user.email = "";
     this.user.password = "";
@@ -42,6 +50,20 @@ export class LoginPage implements OnInit {
         });
         if (res.user.uid) {
           if (res.user.emailVerified) {
+            this.aFireAuth.authState.pipe(take(1)).subscribe(data =>{
+              console.log(data);    
+              if(data && data.email && data.uid){
+                this.aFireAuthDB.object('profile/'+data.uid).valueChanges().subscribe(val => {
+                  this.profileData = val;
+                  // set a key/value
+                  this.storage.setItem('name', this.profileData).then(
+                    (data) => console.log('Stored first item!',data),
+                    error => console.error('Error storing item', error)
+                  );
+                })
+              }  
+            })
+            
             this.navCtrl.navigateRoot("home");
           } else {
             this.showAlert(
@@ -49,7 +71,7 @@ export class LoginPage implements OnInit {
             );
           }
         } else {
-          this.showAlert("Email ou mot de passe eronné. mMrci de verifier!");
+          this.showAlert("Email ou mot de passe eronné. Merci de verifier!");
         }
       })
       .catch(error => {
@@ -57,7 +79,7 @@ export class LoginPage implements OnInit {
         loading.then(load => {
           load.dismiss();
         });
-        this.showAlert("Login ou mot de passe eronné, merci de verifier!");
+        this.showAlert(error);
       });
   }
 

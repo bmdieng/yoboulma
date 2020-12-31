@@ -18,8 +18,8 @@ color:#000;
 }
 
 .img{
-  width: 235px;
-  height: 45px;
+  width: 220px;
+  height: 40px;
   padding: 1px 1px 1px 50px !important;
 }
 
@@ -38,4 +38,13 @@ color:#000;
   padding-top: 0px;
   padding-bottom: 0px;
   background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
+
+.swiper-pagination-bullet-active {
+  background: #e0115f;
+}
+
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 4px;
+  background: #e0115f !important;
 }

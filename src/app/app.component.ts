@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { APPLICATION_VERSION } from './constant';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +13,8 @@ import { FCM } from '@ionic-native/fcm/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  v = APPLICATION_VERSION;
 
   public selectedIndex = 0;
   public appPages = [
@@ -60,12 +60,12 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private aFireAuth: AngularFireAuth,
-    private aFireAuthDB : AngularFireDatabase,
+    private storage: NativeStorage,
     public fcm: FCM,
     public router: Router) {  
       
     this.initializeApp();
+    this.ionViewDidEnter()
   }
 
   initializeApp() {
@@ -96,19 +96,22 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.aFireAuth.authState.pipe(take(1)).subscribe(data =>{
-      console.log(data);    
-      if(data && data.email && data.uid){
-        this.aFireAuthDB.object('profile/'+data.uid).valueChanges().subscribe(val => {
-          this.profileData = val;
-          console.log(this.profileData);
-        })
-      }  
-    })  
+    
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+  }
+
+  ionViewDidEnter(){
+    this.storage.getItem('name').then(
+      (data) => {
+        console.log("Get Value : ", data);
+        this.profileData = data
+      },
+      error => console.error('Error storing item', error)
+    );
+
   }
 
   

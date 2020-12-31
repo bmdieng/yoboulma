@@ -18,6 +18,7 @@ import { CallNumber } from "@ionic-native/call-number/ngx";
 export class DetailLivreurPage implements OnInit {
   livreur: any;
   sub: any;
+  dateString: string;
 
   constructor(
     public navCtrl: NavController,
@@ -66,8 +67,8 @@ export class DetailLivreurPage implements OnInit {
     this.livreur = this.activatedRoute.snapshot.paramMap.get("data");
     this.livreur = JSON.parse(this.livreur);
     var m = new Date(this.livreur.date);
-    var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
-    console.log("date => ", dateString);
+    this.dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+    console.log("date => ", this.dateString);
     console.log("Détails du livreur : ", this.livreur);
   }
 
