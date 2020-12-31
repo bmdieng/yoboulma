@@ -29,7 +29,7 @@ export class AppComponent {
       icon: 'person'
     },
     {
-      title: 'Trouver un livreur',
+      title: 'Publier un livreur',
       url: '/trouver-annonce',
       icon: 'search'
     },

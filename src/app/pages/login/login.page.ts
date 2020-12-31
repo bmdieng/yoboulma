@@ -53,6 +53,7 @@ export class LoginPage implements OnInit {
             this.aFireAuth.authState.pipe(take(1)).subscribe(data =>{
               console.log(data);    
               if(data && data.email && data.uid){
+                this.storage.remove('name');
                 this.aFireAuthDB.object('profile/'+data.uid).valueChanges().subscribe(val => {
                   this.profileData = val;
                   // set a key/value

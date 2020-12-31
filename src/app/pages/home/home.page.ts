@@ -16,10 +16,14 @@ export class HomePage {
   public itemRef: firebase.database.Reference = firebase
     .database()
     .ref("/livreurs");
+    public annonces: Array<any> = [];
+  public itemRef_: firebase.database.Reference = firebase.database().ref('/annonces');
   profileData: {};
   tabDate: Array<any> = [];
   @ViewChild('slides', { static: true }) slider: IonSlides;
   segment = 0;
+  limitLiV = 10;
+  limitAnn = 10
 
   constructor(
     public navCtrl: NavController,
@@ -27,7 +31,8 @@ export class HomePage {
     private socialSharing: SocialSharing,
     public router: Router
   ) {
-    this.getLivreurs();
+    this.getLivreurs(this.limitLiV);
+    this.getAnnonces(this.limitAnn);
   }
 
   OnViewWillLoad() {}
@@ -41,12 +46,12 @@ export class HomePage {
     this.segment = await this.slider.getActiveIndex();
   }
 
-  getLivreurs() {
+  getLivreurs(limit) {
     const loading = this.loadingCtrl.create();
     loading.then(load => {
       load.present();
     });
-    this.itemRef.on("value", itemSnapshot => {
+    this.itemRef.orderByValue().limitToLast(limit).on("value", itemSnapshot => {
       this.livreurs = [];
       itemSnapshot.forEach(itemSnap => {
         // var dateOne = new Date(); //Year, Month, Date
@@ -82,6 +87,38 @@ export class HomePage {
     this.router.navigate(["detail-livreur/", JSON.stringify(livreur)]);
   }
 
+  getAnnonces(limit){
+    const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
+      loading.then(load => {
+        load.present();
+      });
+    this.itemRef_.orderByValue().limitToLast(limit).on('value', itemSnapshot => {
+      this.annonces = [];
+      itemSnapshot.forEach( itemSnap => {
+        var dateOne = new Date(); //Year, Month, Date    
+        var dateTwo = new Date(itemSnap.val().date);   
+        if (this.compare_dates(dateOne, dateTwo)) {
+          if (itemSnap.val().etat) {
+            var m = new Date(itemSnap.val().date);
+            var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
+            console.log("date => ", dateString);
+            this.tabDate.push(dateString)
+            this.annonces.push(itemSnap.val());   
+          }  
+        }            
+      });
+      console.log(this.annonces);
+    });
+    loading.then(load => {
+      load.dismiss();
+    });
+    return this.annonces;
+  }
+  
+  consulterAnnonce(annonce){
+    this.router.navigate(['detail-annonceur/', JSON.stringify(annonce)]);
+  }
+
   openGeoloc() {
     this.router.navigate(["/geoloc"]);
   }
@@ -111,4 +148,31 @@ export class HomePage {
       )
       .then(ok => console.log(ok), err => console.log(err));
   }
+
+//   onInfiniteScroll(event) {
+//     this.limit += 10; // or however many more you want to load
+//     this.itemRef.limitToFirst(limit).once('value', itemList => {
+//       let items = [];
+//       itemList.forEach( item => {
+//         items.push(item.val());
+//         return false;
+//       });
+
+//       this.itemList = items;
+//       this.loadeditemList = items;
+
+//     });
+// }
+
+loadDataAnnonce(){
+  this.limitAnn += 10; // or however many more you want to load
+  this.getLivreurs(this.limitAnn);
+}
+
+loadDataLivreur(){
+  this.limitLiV += 10; // or however many more you want to load
+  this.getLivreurs(this.limitLiV);
+  
+}
+
 }
