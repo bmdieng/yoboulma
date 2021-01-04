@@ -15,11 +15,12 @@ export class PublierAnnoncePage implements OnInit {
   public annonces: Array<any> = [];
   public itemRef: firebase.database.Reference = firebase.database().ref('/annonces');
   tabDate: Array<any> = [];
+  limit = 10;
 
   constructor(public modalCtrl: ModalController,
     public router: Router,
     public loadingCtrl: LoadingController) { 
-    this.getAnnonces();
+    this.getAnnonces(this.limit, "");
   }
 
   ngOnInit() {
@@ -33,12 +34,12 @@ export class PublierAnnoncePage implements OnInit {
     await modal.present();
   }
 
-getAnnonces(){
+getAnnonces(limit, event){
   const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
     loading.then(load => {
       load.present();
     });
-  this.itemRef.on('value', itemSnapshot => {
+  this.itemRef.orderByValue().limitToLast(limit).on('value', itemSnapshot => {
     this.annonces = [];
     itemSnapshot.forEach( itemSnap => {
       var dateOne = new Date(); //Year, Month, Date    
@@ -54,6 +55,7 @@ getAnnonces(){
       }            
     });
     console.log(this.annonces);
+    event.target.complete();
   });
   loading.then(load => {
     load.dismiss();
@@ -65,19 +67,16 @@ consulter(annonce){
   this.router.navigate(['detail-annonceur/', JSON.stringify(annonce)]);
 }
 
-doRefresh(refresher) {
-  console.log('Begin async operation', refresher);
-
-  setTimeout(() => {
-    console.log('Async operation has ended');
-    refresher.complete();
-  }, 1000);
-}
-
 compare_dates(date1,date2){
   if (date1>date2) return false;
 else if (date1<date2) return true;
 else return true; 
+}
+
+
+loadDataAnnonce(event){
+  this.limit += 10; // or however many more you want to load
+  this.getAnnonces(this.limit, event);
 }
 
 }

@@ -21,7 +21,7 @@
   <ion-content>
     <ion-segment color="danger" (ionChange)="segmentChanged()" [(ngModel)]="segment">
       <ion-segment-button value="0">
-        Offres de laivraion
+        Offres de livraison
       </ion-segment-button>
       <ion-segment-button value="1">
         Recherche de livreurs
@@ -32,13 +32,15 @@
     <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
       <ion-slide>
         <div>
-          <h4 style="color:#e0115f">Offres de laivraion disponibles</h4>
+          <h4 style="color:#e0115f">Offres de livraison disponibles</h4>
           <ion-label>
-            <ion-searchbar (click)="getItems($event)" placeholder="trouve un livreur"></ion-searchbar>
+              <ion-searchbar
+              [(ngModel)]="inputLivreur"
+              (ionInput)="rechercherLivreur($event)"
+              placeholder="Chercher un livreur"
+              (ionCancel)="onCancel($event)">
+            </ion-searchbar>
           </ion-label>
-          <ion-refresher (ionRefresh)="doRefresh($event)">
-            <ion-refresher-content></ion-refresher-content>
-          </ion-refresher>
 
           <ion-list *ngFor="let livreur of livreurs; let i = index">
             <ion-card (click)="consulter(livreur)">
@@ -56,6 +58,7 @@
               <ion-card-content class="contenu">
                 <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
                 <p><b><u>Description</u></b> : {{livreur.description}} </p>
+                <p><b><u>adresse</u></b> : {{livreur.adresse}} </p>
                 <p><b><u>Date de fin</u></b> : {{ tabDate[i]}}</p>
               </ion-card-content>
             </ion-card>
@@ -72,11 +75,13 @@
         <div>
           <h4 style="color:#e0115f">Annonces de recherche de livreurs</h4>
           <ion-label>
-            <ion-searchbar (click)="getItems($event)" placeholder="trouve une annonce"></ion-searchbar>
+              <ion-searchbar
+              [(ngModel)]="inputAnnonce"
+              (ionInput)="rechercherAnnonce($event)"
+              placeholder="Chercher une annonce"
+              (ionCancel)="onCancel($event)">
+            </ion-searchbar>
           </ion-label>
-          <ion-refresher (ionRefresh)="doRefresh($event)">
-            <ion-refresher-content></ion-refresher-content>
-          </ion-refresher>
           <ion-list *ngFor="let annonce of annonces; let i = index">
             <ion-card (click)="consulterAnnonce(annonce)">
               <ion-item>
@@ -101,8 +106,7 @@
           </ion-list>
           <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataAnnonce($event)">
               <ion-infinite-scroll-content
-                loadingSpinner="bubbles"
-                loadingText="Loading more data...">
+                loadingSpinner="bubbles">
               </ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </div>

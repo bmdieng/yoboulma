@@ -37,6 +37,11 @@
     </ion-card>
 
   </ion-list>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataAnnonce($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
   <ion-fab vertical="bottom" style="color:#e0115f" horizontal="end" slot="fixed" (click)="creerAnnonce()">
     <ion-fab-button color="danger">

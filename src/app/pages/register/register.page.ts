@@ -30,12 +30,13 @@ export class RegisterPage implements OnInit {
         user.email,
         user.password
       );
-      this.service.SendVerificationMail();
+      
       console.log(res.user);
       loading.then(load => {
         load.dismiss();
       });
       if (res.user.uid) {
+        this.service.SendVerificationMail();
         this.nav.navigateRoot("profile");
       }
     } catch (error) {

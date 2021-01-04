@@ -38,7 +38,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   login(user: User) {
-    const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
+    if (user.email !="" && user.password !="") {
+      const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
     loading.then(load => {
       load.present();
     });
@@ -80,8 +81,12 @@ export class LoginPage implements OnInit {
         loading.then(load => {
           load.dismiss();
         });
-        this.showAlert(error);
+        this.showAlert(error.message);
       });
+    } else {
+      this.showAlert("Merci de bien renseigner les parametres de connexion ");
+    }
+    
   }
 
   showAlert(text) {
@@ -140,9 +145,14 @@ export class LoginPage implements OnInit {
                 loading.then(load => {
                   load.dismiss();
                 });
-                this.showAlert(
-                  "Un lien de réinitialisation du mot de passe a été envoyé à votre adresse adresse e-mail"
-                );
+                // console.log("verif email : ", res);
+                if (res != undefined) {
+                  this.showAlert(
+                    "Un lien de réinitialisation du mot de passe a été envoyé à votre adresse adresse e-mail"
+                  );
+                }
+                
+                
               });
             }
           }
