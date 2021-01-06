@@ -21,6 +21,8 @@ import { Network } from '@ionic-native/network/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 // FCM
 import { FCM } from '@ionic-native/fcm/ngx';
+import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
+import { Device } from '@ionic-native/device/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,6 +48,8 @@ import { FCM } from '@ionic-native/fcm/ngx';
     SocialSharing,
     CallNumber,
     FCM,
+    AndroidFingerprintAuth,
+    Device,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

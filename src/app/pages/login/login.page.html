@@ -44,6 +44,17 @@
           
         </ion-card-content>
       </ion-card>
+      <div *ngIf="fingerExist">
+          <ion-fab vertical="bottom" style="color:#e0115f" horizontal="center" slot="fixed" (click)="FingerPrint()"  >
+              <ion-fab-button color="danger">
+                <ion-icon name="finger-print-outline"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+
+      </div>
+      
+
+      
 
     <p text-right ion-text tappable (click)="forgotPass()"><strong><u>Mot de passe
           oublié?</u></strong></p>

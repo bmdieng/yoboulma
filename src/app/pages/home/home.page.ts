@@ -23,6 +23,8 @@ export class HomePage {
   @ViewChild('slides', { static: true }) slider: IonSlides;
   segment = 0;
   limitLiV = 10;
+  startLiV = 0;
+  startAnn = 0;
   limitAnn = 10;
   inputLivreur ="";
   inputAnnonce ="";
@@ -33,8 +35,8 @@ export class HomePage {
     private socialSharing: SocialSharing,
     public router: Router
   ) {
-    this.getLivreurs(this.limitLiV, "");
-    this.getAnnonces(this.limitAnn, "");
+    this.getLivreurs(this.limitLiV, "", this.startLiV);
+    this.getAnnonces(this.limitAnn, "", this.startAnn);
   }
 
   OnViewWillLoad() {}
@@ -48,12 +50,12 @@ export class HomePage {
     this.segment = await this.slider.getActiveIndex();
   }
 
-  getLivreurs(limit, event) {
+  getLivreurs(limit, event, start?) {
     const loading = this.loadingCtrl.create();
     loading.then(load => {
       load.present();
     });
-    this.itemRef.orderByValue().limitToLast(limit).on("value", itemSnapshot => {
+    this.itemRef.orderByValue().startAt(start).limitToLast(limit).on("value", itemSnapshot => {
       this.livreurs = [];
       itemSnapshot.forEach(itemSnap => {
         // var dateOne = new Date(); //Year, Month, Date
@@ -91,12 +93,12 @@ export class HomePage {
     this.router.navigate(["detail-livreur/", JSON.stringify(livreur)]);
   }
 
-  getAnnonces(limit, event){
+  getAnnonces(limit, event, start?){
     const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
       loading.then(load => {
         load.present();
       });
-    this.itemRef_.orderByValue().limitToLast(limit).on('value', itemSnapshot => {
+    this.itemRef_.orderByValue().startAt(start).limitToLast(limit).on('value', itemSnapshot => {
       this.annonces = [];
       itemSnapshot.forEach( itemSnap => {
         var dateOne = new Date(); //Year, Month, Date    
@@ -147,13 +149,15 @@ export class HomePage {
   }
 
   loadDataAnnonce(event){
+    this.startAnn = this.limitAnn;
     this.limitAnn += 10; // or however many more you want to load
-    this.getLivreurs(this.limitAnn, event);
+    this.getLivreurs(this.limitAnn, event, this.startAnn);
   }
 
   loadDataLivreur(event){
+    this.startLiV = this.limitLiV;
     this.limitLiV += 10; // or however many more you want to load
-    this.getLivreurs(this.limitLiV, event);
+    this.getLivreurs(this.limitLiV, event, this.startLiV);
   }
 
   rechercherLivreur(ev){

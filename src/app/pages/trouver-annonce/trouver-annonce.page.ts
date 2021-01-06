@@ -16,12 +16,13 @@ export class TrouverAnnoncePage implements OnInit {
   public livreurs: Array<any> = [];
   tabDate: Array<any> = [];
   public itemRef: firebase.database.Reference = firebase.database().ref('/livreurs');
+  start = 0;
   limit = 10;
 
   constructor(public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
     public router: Router) {   
-     this.getLivreurs(this.limit, "");
+     this.getLivreurs(this.start, this.limit, "");
   }
 
   ionViewDidLoad() {
@@ -39,12 +40,12 @@ export class TrouverAnnoncePage implements OnInit {
 
   }
 
-  getLivreurs(limit, event){
+  getLivreurs(start, limit, event){
     const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
     loading.then(load => {
       load.present();
     });
-    this.itemRef.orderByValue().limitToLast(limit).on('value', itemSnapshot => {
+    this.itemRef.orderByValue().startAt(start).limitToLast(limit).on('value', itemSnapshot => {
       this.livreurs = [];
       itemSnapshot.forEach( itemSnap => {
         var dateOne = new Date(); //Year, Month, Date    
@@ -91,8 +92,9 @@ export class TrouverAnnoncePage implements OnInit {
   }
 
   loadDataLivreur(event){
+  this.start = this.limit;
     this.limit += 10; // or however many more you want to load
-  this.getLivreurs(this.limit, event);
+  this.getLivreurs(this.start, this.limit, event);
   }
 
 }

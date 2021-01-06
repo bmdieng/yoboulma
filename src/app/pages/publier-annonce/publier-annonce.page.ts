@@ -15,12 +15,13 @@ export class PublierAnnoncePage implements OnInit {
   public annonces: Array<any> = [];
   public itemRef: firebase.database.Reference = firebase.database().ref('/annonces');
   tabDate: Array<any> = [];
+  start = 0;
   limit = 10;
 
   constructor(public modalCtrl: ModalController,
     public router: Router,
     public loadingCtrl: LoadingController) { 
-    this.getAnnonces(this.limit, "");
+    this.getAnnonces(this.start, this.limit, "");
   }
 
   ngOnInit() {
@@ -34,12 +35,12 @@ export class PublierAnnoncePage implements OnInit {
     await modal.present();
   }
 
-getAnnonces(limit, event){
+getAnnonces(start, limit, event){
   const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
     loading.then(load => {
       load.present();
     });
-  this.itemRef.orderByValue().limitToLast(limit).on('value', itemSnapshot => {
+  this.itemRef.orderByValue().startAt(start).limitToLast(limit).on('value', itemSnapshot => {
     this.annonces = [];
     itemSnapshot.forEach( itemSnap => {
       var dateOne = new Date(); //Year, Month, Date    
@@ -75,8 +76,9 @@ else return true;
 
 
 loadDataAnnonce(event){
+  this.start = this.limit;
   this.limit += 10; // or however many more you want to load
-  this.getAnnonces(this.limit, event);
+  this.getAnnonces(this.start, this.limit, event);
 }
 
 }
