@@ -25,6 +25,7 @@ export class AnnonceModalComponent implements OnInit {
     private aFireAuthDB: AngularFireDatabase,
     public navParams: NavParams
   ) {
+    this.annonce.telephone =""
     this.minDate = new Date().toISOString();
   }
 
@@ -37,8 +38,11 @@ export class AnnonceModalComponent implements OnInit {
   }
 
   posterAnnonce(annonce: Annonce) {
-    annonce.etat = true;
+    annonce.etat = false;
 
+    if (annonce.arrivee != "" && annonce.depart != "" && annonce.titre != "" &&
+    annonce.telephone != "" && annonce.telephone.length > 8 ) {
+      
     this.aFireAuth.authState.pipe(take(1)).subscribe(auth => {
       //  RECUPERATION DU PRENOM ET DU NOM DE L'UTILISATEUR
       this.aFireAuthDB
@@ -55,7 +59,7 @@ export class AnnonceModalComponent implements OnInit {
               this.alertCtrl
                 .create({
                   header: APPLICATION_NAME,
-                  subHeader: "Annonce publiée avec succès!",
+                  subHeader: "Annonce publiée avec succès. Elle sera visible dés qu'elle sera validée par les administrateurs!",
                   buttons: [
                     {
                       text: "OK",
@@ -72,6 +76,26 @@ export class AnnonceModalComponent implements OnInit {
             });
         });
     });
+  } else {
+
+    this.alertCtrl
+                .create({
+                  header: APPLICATION_NAME,
+                  subHeader: "Les données saisies ne sont pas correctes!",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: () => {
+                      }
+                    }
+                  ]
+                  // enableBackdropDismiss: false
+                })
+                .then(alert => {
+                  alert.present();
+                });
+      
+  }
   }
 
   ngOnInit() {}

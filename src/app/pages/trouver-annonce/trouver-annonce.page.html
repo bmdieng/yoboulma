@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar color="danger">
-        <ion-buttons slot="start">
+        <ion-buttons slot="start" >
             <ion-menu-button></ion-menu-button>
           </ion-buttons>
       <ion-title>
@@ -28,12 +28,13 @@
               </ion-text>
               <p>{{livreur?.titre}}</p>
             </ion-label>
+            <ion-label text-right>
+                <ion-text color="primary">
+                    <h3 style="color:#e0115f">Date publication</h3>
+                  </ion-text>
+                  <p>{{ tabDate[i]}}</p>
+            </ion-label>
           </ion-item>
-          <ion-card-content>
-            <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
-            <p><b><u>Description</u></b> : {{livreur.description}} </p>
-            <p><b><u>Date de publication</u></b> : {{ tabDate[i]}}</p>
-          </ion-card-content>
         </ion-card>
       </ion-list>
       <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataLivreur($event)">

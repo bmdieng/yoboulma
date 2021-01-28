@@ -37,7 +37,8 @@ export class RegisterPage implements OnInit {
       });
       if (res.user.uid) {
         this.service.SendVerificationMail();
-        this.nav.navigateRoot("profile");
+        // this.nav.navigateRoot("profile");
+        this.nav.navigateRoot(["profile/", "create"]);
       }
     } catch (error) {
       loading.then(load => {

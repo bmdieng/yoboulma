@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import * as firebase from "firebase";
-import { NavController, AlertController, IonSlides} from "@ionic/angular";
+import { NavController, AlertController, IonSlides } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 import { APPLICATION_NAME, APPLICATION_LINK } from "src/app/constant";
-import { ViewChild } from '@angular/core';
+import { ViewChild } from "@angular/core";
+// import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
 
 @Component({
   selector: "app-home",
@@ -16,31 +17,38 @@ export class HomePage {
   public itemRef: firebase.database.Reference = firebase
     .database()
     .ref("/livreurs");
-    public annonces: Array<any> = [];
-  public itemRef_: firebase.database.Reference = firebase.database().ref('/annonces');
+  public annonces: Array<any> = [];
+  public itemRef_: firebase.database.Reference = firebase
+    .database()
+    .ref("/annonces");
   profileData: {};
-  tabDate: Array<any> = [];
-  @ViewChild('slides', { static: true }) slider: IonSlides;
+  tabDateLiv: Array<any> = [];
+  tabDateAn: Array<any> = [];
+  @ViewChild("slides", { static: true }) slider: IonSlides;
   segment = 0;
   limitLiV = 10;
   startLiV = 0;
   startAnn = 0;
   limitAnn = 10;
-  inputLivreur ="";
-  inputAnnonce ="";
+  inputLivreur = "";
+  inputAnnonce = "";
 
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: AlertController,
     private socialSharing: SocialSharing,
+    // private firebaseAnalytics: FirebaseAnalytics,
     public router: Router
   ) {
     this.getLivreurs(this.limitLiV, "", this.startLiV);
     this.getAnnonces(this.limitAnn, "", this.startAnn);
   }
 
-  OnViewWillLoad() {}
-
+  OnViewWillLoad() {
+    //   this.firebaseAnalytics.logEvent('page_view', {page: "HomePage"})
+    // .then((res: any) => console.log(res))
+    // .catch((error: any) => console.error(error));
+  }
 
   async segmentChanged() {
     await this.slider.slideTo(this.segment);
@@ -50,17 +58,25 @@ export class HomePage {
     this.segment = await this.slider.getActiveIndex();
   }
 
+  consulter(livreur) {
+    this.router.navigate(["detail-livreur/", JSON.stringify(livreur)]);
+  }
+
   getLivreurs(limit, event, start?) {
     const loading = this.loadingCtrl.create();
     loading.then(load => {
       load.present();
     });
-    this.itemRef.orderByValue().startAt(start).limitToLast(limit).on("value", itemSnapshot => {
-      this.livreurs = [];
-      itemSnapshot.forEach(itemSnap => {
-        // var dateOne = new Date(); //Year, Month, Date
-        // var dateTwo = new Date(itemSnap.val().date);
-        // if (this.compare_dates(dateOne, dateTwo)) {
+    this.itemRef
+      .orderByValue()
+      .startAt(start)
+      .limitToLast(limit)
+      .on("value", itemSnapshot => {
+        let tabLivreurs = [];
+        itemSnapshot.forEach(itemSnap => {
+          // var dateOne = new Date(); //Year, Month, Date
+          // var dateTwo = new Date(itemSnap.val().date);
+          // if (this.compare_dates(dateOne, dateTwo)) {
           if (itemSnap.val().etat) {
             var m = new Date(itemSnap.val().date);
             var dateString =
@@ -74,57 +90,75 @@ export class HomePage {
               ":" +
               m.getUTCMinutes();
             console.log("date => ", dateString);
-            this.tabDate.push(dateString);
-            this.livreurs.push(itemSnap.val());
-            
+            this.tabDateLiv.push(dateString);
+            tabLivreurs.push(itemSnap.val());
           }
-        // }
+          // }
+        });
+        
+        this.livreurs = this.livreurs.concat(tabLivreurs);
+        console.log(this.livreurs);
+        this.livreurs.sort(function(a, b) {
+          if (a.date > b.date) return 1;
+          if (a.date < b.date) return -1;
+        });
+        event.target.complete();
       });
-      event.target.complete();
-      console.log(this.livreurs);
-    });
     loading.then(load => {
       load.dismiss();
     });
     return this.livreurs;
   }
 
-  consulter(livreur) {
-    this.router.navigate(["detail-livreur/", JSON.stringify(livreur)]);
-  }
-
-  getAnnonces(limit, event, start?){
-    const loading = this.loadingCtrl.create({cssClass: 'my-custom-class'});
-      loading.then(load => {
-        load.present();
-      });
-    this.itemRef_.orderByValue().startAt(start).limitToLast(limit).on('value', itemSnapshot => {
-      this.annonces = [];
-      itemSnapshot.forEach( itemSnap => {
-        var dateOne = new Date(); //Year, Month, Date    
-        var dateTwo = new Date(itemSnap.val().date);   
-        if (this.compare_dates(dateOne, dateTwo)) {
-          if (itemSnap.val().etat) {
-            var m = new Date(itemSnap.val().date);
-            var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
-            console.log("date => ", dateString);
-            this.tabDate.push(dateString)
-            this.annonces.push(itemSnap.val());   
-            
-          }  
-        }            
-      });
-      console.log(this.annonces);
-      event.target.complete();
+  getAnnonces(limit, event, start?) {
+    const loading = this.loadingCtrl.create({ cssClass: "my-custom-class" });
+    loading.then(load => {
+      load.present();
     });
+    this.itemRef_
+      .orderByValue()
+      .startAt(start)
+      .limitToLast(limit)
+      .on("value", itemSnapshot => {
+        let tabAnnonces = [];
+        itemSnapshot.forEach(itemSnap => {
+          var dateOne = new Date(); //Year, Month, Date
+          var dateTwo = new Date(itemSnap.val().date);
+          if (this.compare_dates(dateOne, dateTwo)) {
+            if (itemSnap.val().etat) {
+              var m = new Date(itemSnap.val().date);
+              var dateString =
+                m.getUTCDate() +
+                "/" +
+                (m.getUTCMonth() + 1) +
+                "/" +
+                m.getUTCFullYear() +
+                " à " +
+                m.getUTCHours() +
+                ":" +
+                m.getUTCMinutes();
+              console.log("date => ", dateString);
+              this.tabDateAn.push(dateString);
+              tabAnnonces.push(itemSnap.val());
+            }
+          }
+        });
+        this.annonces = this.annonces.concat(tabAnnonces);
+        console.log(this.annonces);
+        this.annonces.sort(function(a, b) {
+          if (a.date > b.date) return 1;
+          if (a.date < b.date) return -1;
+        });
+        event.target.complete();
+      });
     loading.then(load => {
       load.dismiss();
     });
     return this.annonces;
   }
-  
-  consulterAnnonce(annonce){
-    this.router.navigate(['detail-annonceur/', JSON.stringify(annonce)]);
+
+  consulterAnnonce(annonce) {
+    this.router.navigate(["detail-annonceur/", JSON.stringify(annonce)]);
   }
 
   openGeoloc() {
@@ -148,72 +182,89 @@ export class HomePage {
       .then(ok => console.log(ok), err => console.log(err));
   }
 
-  loadDataAnnonce(event){
+  loadDataAnnonce(event) {
     this.startAnn = this.limitAnn;
     this.limitAnn += 10; // or however many more you want to load
     this.getLivreurs(this.limitAnn, event, this.startAnn);
   }
 
-  loadDataLivreur(event){
+  loadDataLivreur(event) {
     this.startLiV = this.limitLiV;
     this.limitLiV += 10; // or however many more you want to load
     this.getLivreurs(this.limitLiV, event, this.startLiV);
   }
 
-  rechercherLivreur(ev){
+  rechercherLivreur(ev) {
     console.log("Value search : ", this.inputLivreur);
-    
-    if (ev.target.value !="") {
+
+    if (ev.target.value != "") {
       this.livreurs = [];
-      this.itemRef.orderByChild('adresse').equalTo("Mariste").on("value", function(itemSnapshot) {
-        
-        itemSnapshot.forEach( itemSnap => {
-          var dateOne = new Date(); //Year, Month, Date    
-          var dateTwo = new Date(itemSnap.val().date);   
-          if (this.compare_dates(dateOne, dateTwo)) {
-            if (itemSnap.val().etat) {
-              var m = new Date(itemSnap.val().date);
-              var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
-              console.log("date => ", dateString);
-              this.tabDate.push(dateString)
-              this.livreurs.push(itemSnap.val());   
-              
-            }  
-          }            
+      this.itemRef
+        .orderByChild("adresse")
+        .equalTo("Mariste")
+        .on("value", function(itemSnapshot) {
+          itemSnapshot.forEach(itemSnap => {
+            var dateOne = new Date(); //Year, Month, Date
+            var dateTwo = new Date(itemSnap.val().date);
+            if (this.compare_dates(dateOne, dateTwo)) {
+              if (itemSnap.val().etat) {
+                var m = new Date(itemSnap.val().date);
+                var dateString =
+                  m.getUTCDate() +
+                  "/" +
+                  (m.getUTCMonth() + 1) +
+                  "/" +
+                  m.getUTCFullYear() +
+                  " à " +
+                  m.getUTCHours() +
+                  ":" +
+                  m.getUTCMinutes();
+                console.log("date => ", dateString);
+                this.tabDate.push(dateString);
+                this.livreurs.push(itemSnap.val());
+              }
+            }
+          });
         });
-    });
     } else {
       this.getLivreurs(this.limitLiV, "");
     }
-    
   }
 
-  rechercherAnnonce(ev){
-    console.log("Value search : ",this.inputAnnonce);
-    this.inputAnnonce ="Dakar";
-    if (ev.target.value !="") {
+  rechercherAnnonce(ev) {
+    console.log("Value search : ", this.inputAnnonce);
+    this.inputAnnonce = "Dakar";
+    if (ev.target.value != "") {
       this.annonces = [];
-      this.itemRef_.orderByChild('arrivee').equalTo(this.inputAnnonce).on("value", function(itemSnapshot) {
-       
-        itemSnapshot.forEach( itemSnap => {
-          var dateOne = new Date(); //Year, Month, Date    
-          var dateTwo = new Date(itemSnap.val().date);   
-          if (this.compare_dates(dateOne, dateTwo)) {
-            if (itemSnap.val().etat) {
-              var m = new Date(itemSnap.val().date);
-              var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
-              console.log("date => ", dateString);
-              this.tabDate.push(dateString)
-              this.annonces.push(itemSnap.val());   
-              
-            }  
-          }            
+      this.itemRef_
+        .orderByChild("arrivee")
+        .equalTo(this.inputAnnonce)
+        .on("value", function(itemSnapshot) {
+          itemSnapshot.forEach(itemSnap => {
+            var dateOne = new Date(); //Year, Month, Date
+            var dateTwo = new Date(itemSnap.val().date);
+            if (this.compare_dates(dateOne, dateTwo)) {
+              if (itemSnap.val().etat) {
+                var m = new Date(itemSnap.val().date);
+                var dateString =
+                  m.getUTCDate() +
+                  "/" +
+                  (m.getUTCMonth() + 1) +
+                  "/" +
+                  m.getUTCFullYear() +
+                  " à " +
+                  m.getUTCHours() +
+                  ":" +
+                  m.getUTCMinutes();
+                console.log("date => ", dateString);
+                this.tabDate.push(dateString);
+                this.annonces.push(itemSnap.val());
+              }
+            }
+          });
         });
-    });
     } else {
       this.getLivreurs(this.limitLiV, "");
     }
-    
   }
-
 }

@@ -27,13 +27,13 @@
           </ion-text>
           <p>{{annonce?.titre}}</p>
         </ion-label>
+        <ion-label text-right>
+            <ion-text color="primary">
+                <h3 style="color:#e0115f">Date de fin</h3>
+              </ion-text>
+              <p>{{ tabDate[i]}}</p>
+        </ion-label>
       </ion-item>
-      <ion-card-content>
-          <p><b style="color:#e0115f">Départ</b> : {{annonce?.depart}}</p>
-          <p><b style="color:#e0115f">Arrivée</b> : {{annonce?.arrivee}}</p>
-          <p><b style="color:#e0115f">Description</b> : {{annonce?.description}}</p>
-          <p><b style="color:#e0115f">Date de fin</b> : {{ tabDate[i]}}</p>
-      </ion-card-content>
     </ion-card>
 
   </ion-list>

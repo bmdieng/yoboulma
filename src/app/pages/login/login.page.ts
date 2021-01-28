@@ -13,6 +13,7 @@ import { take } from "rxjs/operators";
 import { NativeStorage } from "@ionic-native/native-storage/ngx";
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
 import { Device } from '@ionic-native/device/ngx';
+// import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class LoginPage implements OnInit {
   user = {} as User;
   profileData: any;
   fingerExist= false;
+  firstConnect = false;
 
   constructor(
     public authService: AuthenticationService,
@@ -34,13 +36,12 @@ export class LoginPage implements OnInit {
     private storage: NativeStorage,
     private aFireAuth: AngularFireAuth,
     private aFireAuthDB: AngularFireDatabase,
+    // public firebaseAnalytics: FirebaseAnalytics,
     private androidFingerprintAuth: AndroidFingerprintAuth,
     private device: Device,
   ) {
     this.user.email = "";
     this.user.password = "";
-
-
   }
 
   ngOnInit(){
@@ -48,19 +49,26 @@ export class LoginPage implements OnInit {
   .then((result)=> {
     console.log("isAvailable ", result);
 
-    
     if(result.isAvailable){
       this.fingerExist = true;
+      this.storage.getItem('firstConnect').then(
+        (data) => {
+          console.log("Get Value firstConnect: ", data);
+          this.firstConnect = data
+        },
+        error => console.error('Error storing firstConnect', error)
+      );
     }
   });
+
+  console.log("FingerPrint && firstConnect ==> ", this.fingerExist, this.firstConnect);
+  
 }
 
-   FingerPrint() {
+fingerPrint() {
     this.androidFingerprintAuth.isAvailable()
   .then((result)=> {
     console.log("isAvailable ", result);
-
-    
     if(result.isAvailable){
       // it is available
 
@@ -89,9 +97,9 @@ export class LoginPage implements OnInit {
     }
   })
   .catch(error => console.error("Error androidFingerprintAuth : ",error));
-  }
+}
 
-  login(user: User) {
+login(user: User) {
     if (user.email != "" && user.password != "") {
       const loading = this.loadingCtrl.create({ cssClass: "my-custom-class" });
       loading.then(load => {
@@ -104,7 +112,15 @@ export class LoginPage implements OnInit {
             load.dismiss();
           });
           if (res.user.uid) {
+  //           this.firebaseAnalytics.logEvent('page_view', {page: "LoginPage"})
+  // .then((res: any) => console.log(res))
+  // .catch((error: any) => console.error(error));
             if (res.user.emailVerified) {
+              this.storage.setItem('firstConnect', true)
+              .then(
+                () => console.log('Stored firstConnect!'),
+                error => console.error('Error storing firstConnect', error)
+              );
               this.navCtrl.navigateRoot("home");
             } else {
               this.showAlert(
@@ -125,9 +141,9 @@ export class LoginPage implements OnInit {
     } else {
       this.showAlert("Merci de bien renseigner les parametres de connexion ");
     }
-  }
+}
 
-  showAlert(text) {
+showAlert(text) {
     this.alertCtrl
       .create({
         header: APPLICATION_NAME,
@@ -143,16 +159,13 @@ export class LoginPage implements OnInit {
       .then(alert => {
         alert.present();
       });
-  }
+}
 
-  register() {
-    this.navCtrl.navigateForward("register");
-  }
+register() {
+  this.navCtrl.navigateForward("register");
+}
 
-  forgotPass() {
-    
-    
-
+forgotPass() {
     this.alertCtrl
       .create({
         cssClass: "my-custom-class",
@@ -201,5 +214,6 @@ export class LoginPage implements OnInit {
       .then(alert => {
         alert.present();
       });
-  }
+}
+
 }

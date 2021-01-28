@@ -49,7 +49,6 @@ getAnnonces(start, limit, event){
         if (itemSnap.val().etat) {
           var m = new Date(itemSnap.val().date);
           var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
-          console.log("date => ", dateString);
           this.tabDate.push(dateString)
           this.annonces.push(itemSnap.val());   
         }  

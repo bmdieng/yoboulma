@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { take } from "rxjs/operators";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class MonProfilePage implements OnInit {
 
   constructor(
     private aFireAuth: AngularFireAuth,
+    private router: Router,
     private aFireAuthDB : AngularFireDatabase) {
       this.aFireAuth.authState.pipe(take(1)).subscribe(data =>{
         console.log(data);    
@@ -29,6 +31,10 @@ export class MonProfilePage implements OnInit {
     }
 
   ngOnInit() {
+  }
+
+  editProfile(){
+    this.router.navigate(["profile/", "edit"]);
   }
 
 }

@@ -1,14 +1,16 @@
-<ion-header parallax imageUrl="https://picsum.photos/350" maximumHeight="350" expandedColor="#AAA" titleColor="white">
-
-  <ion-toolbar color="danger">
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-    <ion-title>
-      Mon Profile
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header [translucent]="true">
+    <ion-toolbar color="danger">
+      <ion-buttons slot="start" style="color:#ffffff">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Mon Profil</ion-title>
+      <ion-buttons slot="primary" style="color: transparent">
+        <ion-button (click)="editProfile()">
+            <ion-icon slot="end" name="pencil-outline" style="color:#ffffff"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
 <!-- -->
 <ion-content appParallaxHeader [scrollEvents]="true">
@@ -36,8 +38,6 @@
         </ion-item>
       </ion-card-content>
     </ion-card>
-
-   
   </div>
 
 </ion-content>

@@ -48,9 +48,7 @@ export class TrouverAnnoncePage implements OnInit {
     this.itemRef.orderByValue().startAt(start).limitToLast(limit).on('value', itemSnapshot => {
       this.livreurs = [];
       itemSnapshot.forEach( itemSnap => {
-        var dateOne = new Date(); //Year, Month, Date    
-        // var dateTwo = new Date(itemSnap.val().date);   
-        // if (this.compare_dates(dateOne, dateTwo)) {
+        var dateOne = new Date(); 
           if (itemSnap.val().etat) {
             var m = new Date(itemSnap.val().date);
             var dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();

@@ -25,12 +25,9 @@ export class DetailAnnonceurPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad DetailLivreurPage");
   }
 
   callLivreur() {
-    console.log("Appeler l'annonceur : ", this.annonceur.auteur);
-    
     this.alertCtrl
       .create({
         header: APPLICATION_NAME,
@@ -65,7 +62,5 @@ export class DetailAnnonceurPage implements OnInit {
     this.annonceur = JSON.parse(this.annonceur);
     var m = new Date(this.annonceur.date);
     this.dateString = m.getUTCDate() +"/"+ (m.getUTCMonth()+1) +"/"+ m.getUTCFullYear() + " à " + m.getUTCHours() + ":" + m.getUTCMinutes();
-    console.log("date => ", this.dateString);
-    console.log("Détails du livreur : ", this.annonceur);
   }
 }

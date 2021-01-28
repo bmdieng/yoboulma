@@ -16,10 +16,10 @@ export class AproposPage implements OnInit {
   envoyerEmail(){
     let email = {
       to: 'linkma2018@gmail.com',
-      cc: 'momodieng00@gmail.com',
+      // cc: 'momodieng00@gmail.com',
       
-      subject: 'Contact LinkMa',
-      body: "Bonjour <br>, je te contact pour avoir des informations sur l'application",
+      subject: 'Contact Yoboulma',
+      body: "Bonjour Equipe Yoboulma<br>, je vous contact pour avoir des informations sur l'application",
       isHtml: true
     };
     

@@ -31,6 +31,7 @@ export class LivreurModalComponent implements OnInit {
       //  }).catch((error) => {
       //    console.log("Impossible d'obtenir vos coordonnées GPS, merci de ressayer.", error);
       //  });
+      this.livreur.telephone = "";
     }
   
     ionViewDidLoad() {
@@ -41,10 +42,13 @@ export class LivreurModalComponent implements OnInit {
     }
   
     posterAnnonce(livreur: Livreur){
-      livreur.etat = true;    
+      livreur.etat = false;    
       // livreur.lat = this.lat;
       // livreur.lng  = this.lng;
       // console.log(this.lat, this.lng);
+
+      if (livreur.dispo != "" && livreur.adresse != "" && livreur.titre != "" &&
+        livreur.telephone.length > 8) {
 
       livreur.date = new Date().toISOString();
       this.aFireAuth.authState.pipe(take(1)).subscribe(auth => {
@@ -58,7 +62,7 @@ export class LivreurModalComponent implements OnInit {
           this.alertCtrl
                 .create({
                   header: APPLICATION_NAME,
-                  subHeader: "Offre de livraison ajoutée avec succès!",
+                  subHeader: "Offre de livraison ajoutée avec succès. Elle sera visible dés qu'elle sera validée par les administrateurs!",
                   buttons: [
                     {
                       text: "OK",
@@ -78,6 +82,27 @@ export class LivreurModalComponent implements OnInit {
         })
   
       })
+
+    } else {
+
+      this.alertCtrl
+                  .create({
+                    header: APPLICATION_NAME,
+                    subHeader: "Les données saisies ne sont pas correctes!",
+                    buttons: [
+                      {
+                        text: "OK",
+                        handler: () => {
+                        }
+                      }
+                    ]
+                    // enableBackdropDismiss: false
+                  })
+                  .then(alert => {
+                    alert.present();
+                  });
+        
+    }
       
   
     }

@@ -21,25 +21,25 @@
   <ion-content>
     <ion-segment color="danger" (ionChange)="segmentChanged()" [(ngModel)]="segment">
       <ion-segment-button value="0">
-        Offres de livraison
+        Livreurs disponibles
       </ion-segment-button>
       <ion-segment-button value="1">
-        Recherche de livreurs
+        Annonces disponibles
       </ion-segment-button>
     </ion-segment>
 
 
     <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
       <ion-slide>
-        <div>
-          <h4 style="color:#e0115f">Offres de livraison disponibles</h4>
+        <div style="width:100%;">
+          <h4 style="color:#e0115f">Livreurs disponibles</h4>
           <ion-label>
-              <ion-searchbar
+              <!-- <ion-searchbar
               [(ngModel)]="inputLivreur"
               (ionInput)="rechercherLivreur($event)"
               placeholder="Chercher un livreur"
               (ionCancel)="onCancel($event)">
-            </ion-searchbar>
+            </ion-searchbar> -->
           </ion-label>
 
           <ion-list *ngFor="let livreur of livreurs; let i = index">
@@ -54,13 +54,13 @@
                   </ion-text>
                   <p>{{livreur?.titre}}</p>
                 </ion-label>
+                <ion-label text-right>
+                    <ion-text color="primary">
+                        <h3 style="color:#e0115f">Date publication</h3>
+                      </ion-text>
+                      <p>{{ tabDateLiv[i]}}</p>
+                </ion-label>
               </ion-item>
-              <ion-card-content class="contenu">
-                <p><b><u>Disponible</u></b> : {{livreur.dispo}}</p>
-                <p><b><u>Description</u></b> : {{livreur.description}} </p>
-                <p><b><u>adresse</u></b> : {{livreur.adresse}} </p>
-                <p><b><u>Date de fin</u></b> : {{ tabDate[i]}}</p>
-              </ion-card-content>
             </ion-card>
           </ion-list>
           <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataLivreur($event)">
@@ -72,15 +72,15 @@
         </div>
       </ion-slide>
       <ion-slide>
-        <div>
-          <h4 style="color:#e0115f">Annonces de recherche de livreurs</h4>
+        <div style="width:100%;">
+          <h4 style="color:#e0115f">Annonces disponibles</h4>
           <ion-label>
-              <ion-searchbar
+              <!-- <ion-searchbar
               [(ngModel)]="inputAnnonce"
               (ionInput)="rechercherAnnonce($event)"
               placeholder="Chercher une annonce"
               (ionCancel)="onCancel($event)">
-            </ion-searchbar>
+            </ion-searchbar> -->
           </ion-label>
           <ion-list *ngFor="let annonce of annonces; let i = index">
             <ion-card (click)="consulterAnnonce(annonce)">
@@ -94,13 +94,13 @@
                   </ion-text>
                   <p>{{annonce?.titre}}</p>
                 </ion-label>
+                <ion-label text-right>
+                    <ion-text color="primary">
+                        <h3 style="color:#e0115f">Date de fin</h3>
+                      </ion-text>
+                      <p>{{ tabDateAn[i]}}</p>
+                </ion-label>
               </ion-item>
-              <ion-card-content class="contenu">
-                <p><b style="color:#e0115f">Départ</b> : {{annonce?.depart}}</p>
-                <p><b style="color:#e0115f">Arrivée</b> : {{annonce?.arrivee}}</p>
-                <p><b style="color:#e0115f">Description</b> : {{annonce?.description}}</p>
-                <p><b style="color:#e0115f">Date de fin</b> : {{ tabDate[i]}}</p>
-              </ion-card-content>
             </ion-card>
 
           </ion-list>

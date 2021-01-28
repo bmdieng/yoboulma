@@ -23,6 +23,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
 import { Device } from '@ionic-native/device/ngx';
+// import { FirebaseAnalytics } from '@ionic-native/firebase-analytics';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,6 +52,7 @@ import { Device } from '@ionic-native/device/ngx';
     FCM,
     AndroidFingerprintAuth,
     Device,
+    // FirebaseAnalytics,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
