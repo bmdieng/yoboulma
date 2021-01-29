@@ -1,9 +1,9 @@
 <ion-header parallax imageUrl="https://picsum.photos/350" maximumHeight="350" expandedColor="#AAA" titleColor="white">
 
   <ion-toolbar color="danger">
-      <ion-buttons slot="start" *ngIf="action =='edit'">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
+    <ion-buttons slot="start" *ngIf="action =='edit'">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>
       Mon Profil
     </ion-title>
@@ -13,7 +13,7 @@
 <!-- -->
 <ion-content appParallaxHeader [scrollEvents]="true">
 
-  <div class="parallax-image" >
+  <div class="parallax-image">
   </div>
 
   <div class="main">
@@ -25,22 +25,23 @@
               <img src="assets/img/person.png">
             </ion-avatar>
           </div> -->
-          <form style="text-align:justify; padding:3px;margin: 4px;font-size:20px;font-family: Arial; color: #ccc; border: solid 1px #e0115f">
-              <ion-item>
-                  <ion-label floating style="color: #e0115f">
-                    Prénom
-                  </ion-label>
-                  <ion-input type="text" [(ngModel)]="profile.prenom" min="" max="5" [ngModelOptions]="{standalone:
+          <form
+            style="text-align:justify; padding:3px;margin: 4px;font-size:20px;font-family: Arial; color: #ccc; border: solid 1px #e0115f">
+            <ion-item>
+              <ion-label floating style="color: #e0115f">
+                Prénom
+              </ion-label>
+              <ion-input type="text" [(ngModel)]="profile.prenom" min="" max="5" [ngModelOptions]="{standalone:
                     true}"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label floating style="color: #e0115f">
-                      Nom
-                    </ion-label>
-                    <ion-input type="text" [(ngModel)]="profile.nom" min="2" [ngModelOptions]="{standalone:
+            </ion-item>
+            <ion-item>
+              <ion-label floating style="color: #e0115f">
+                Nom
+              </ion-label>
+              <ion-input type="text" [(ngModel)]="profile.nom" min="2" [ngModelOptions]="{standalone:
                       true}"></ion-input>
-                  </ion-item>
-                <ion-item> 
+            </ion-item>
+            <ion-item>
               <ion-label floating style="color: #e0115f">
                 Téléphone
               </ion-label>
@@ -65,9 +66,9 @@
 
           <div margin-top>
 
-              <ion-button shape="block" size="large" (click)="mettreAjour(profile)" color="danger">
-                  Mettre à jour
-              </ion-button>
+            <ion-button shape="block" size="large" (click)="mettreAjour(profile)" color="danger">
+              Mettre à jour
+            </ion-button>
           </div>
 
         </ion-list>

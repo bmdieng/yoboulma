@@ -63,13 +63,15 @@ export class HomePage {
   }
 
   getLivreurs(limit, event, start?) {
+    console.log("getLivreurs ==> ", limit, start);
+    
     const loading = this.loadingCtrl.create();
     loading.then(load => {
       load.present();
     });
     this.itemRef
-      .orderByValue()
-      .startAt(start)
+      .orderByChild("date")
+      // .startAt(start)
       .limitToLast(limit)
       .on("value", itemSnapshot => {
         let tabLivreurs = [];
@@ -95,9 +97,9 @@ export class HomePage {
           }
           // }
         });
-        
-        this.livreurs = this.livreurs.concat(tabLivreurs);
-        console.log(this.livreurs);
+        console.log("Liste ==> ", tabLivreurs);
+        this.livreurs = tabLivreurs;
+        // console.log("liste this.livreurs => ",this.livreurs);
         this.livreurs.sort(function(a, b) {
           if (a.date > b.date) return 1;
           if (a.date < b.date) return -1;
@@ -116,8 +118,8 @@ export class HomePage {
       load.present();
     });
     this.itemRef_
-      .orderByValue()
-      .startAt(start)
+      .orderByChild("date")
+      // .startAt(start)
       .limitToLast(limit)
       .on("value", itemSnapshot => {
         let tabAnnonces = [];
@@ -143,7 +145,7 @@ export class HomePage {
             }
           }
         });
-        this.annonces = this.annonces.concat(tabAnnonces);
+        this.annonces = tabAnnonces;
         console.log(this.annonces);
         this.annonces.sort(function(a, b) {
           if (a.date > b.date) return 1;
