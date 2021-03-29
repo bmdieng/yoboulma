@@ -38,7 +38,7 @@ export class AnnonceModalComponent implements OnInit {
   }
 
   posterAnnonce(annonce: Annonce) {
-    annonce.etat = false;
+    annonce.etat = true;
 
     if (annonce.arrivee != "" && annonce.depart != "" && annonce.titre != "" &&
     annonce.telephone != "" && annonce.telephone.length > 8 ) {

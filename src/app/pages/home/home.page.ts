@@ -75,6 +75,8 @@ export class HomePage {
       .limitToLast(limit)
       .on("value", itemSnapshot => {
         let tabLivreurs = [];
+        console.log("itemSnapshot  => ", itemSnapshot);
+        
         itemSnapshot.forEach(itemSnap => {
           // var dateOne = new Date(); //Year, Month, Date
           // var dateTwo = new Date(itemSnap.val().date);
@@ -93,17 +95,14 @@ export class HomePage {
               m.getUTCMinutes();
             console.log("date => ", dateString);
             this.tabDateLiv.push(dateString);
-            tabLivreurs.push(itemSnap.val());
+            this.livreurs.push(itemSnap.val());
           }
           // }
         });
-        console.log("Liste ==> ", tabLivreurs);
-        this.livreurs = tabLivreurs;
+        // console.log("Liste ==> ", tabLivreurs);
+        // this.livreurs = [...tabLivreurs].reverse(); 
         // console.log("liste this.livreurs => ",this.livreurs);
-        this.livreurs.sort(function(a, b) {
-          if (a.date > b.date) return 1;
-          if (a.date < b.date) return -1;
-        });
+      
         event.target.complete();
       });
     loading.then(load => {
@@ -147,10 +146,10 @@ export class HomePage {
         });
         this.annonces = tabAnnonces;
         console.log(this.annonces);
-        this.annonces.sort(function(a, b) {
-          if (a.date > b.date) return 1;
-          if (a.date < b.date) return -1;
-        });
+        // this.annonces.sort(function(a, b) {
+        //   if (a.date > b.date) return 1;
+        //   if (a.date < b.date) return -1;
+        // });
         event.target.complete();
       });
     loading.then(load => {

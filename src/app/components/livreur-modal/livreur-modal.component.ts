@@ -42,7 +42,7 @@ export class LivreurModalComponent implements OnInit {
     }
   
     posterAnnonce(livreur: Livreur){
-      livreur.etat = false;    
+      livreur.etat = true;    
       // livreur.lat = this.lat;
       // livreur.lng  = this.lng;
       // console.log(this.lat, this.lng);

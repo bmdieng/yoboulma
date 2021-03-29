@@ -136,7 +136,11 @@ login(user: User) {
           loading.then(load => {
             load.dismiss();
           });
-          this.showAlert(error.message);
+          if(error.code =='auth/network-request-failed'){
+            this.showAlert("Veuillez vérifier votre connexion internet.");
+          }else{
+            this.showAlert(error.message);
+          }
         });
     } else {
       this.showAlert("Merci de bien renseigner les parametres de connexion ");
