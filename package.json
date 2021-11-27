@@ -125,7 +125,11 @@
       },
       "cordova-plugin-android-fingerprint-auth": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-firebase-analytics": {}
+      "cordova-plugin-firebase-analytics": {
+        "ANALYTICS_COLLECTION_ENABLED": "true",
+        "AUTOMATIC_SCREEN_REPORTING_ENABLED": "true",
+        "ANDROID_FIREBASE_ANALYTICS_VERSION": "18.0.+"
+      }
     },
     "platforms": [
       "browser",

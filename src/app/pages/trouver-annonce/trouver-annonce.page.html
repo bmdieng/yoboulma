@@ -15,27 +15,26 @@
           <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
   
-      <ion-list *ngFor="let livreur of livreurs; let i = index">
-        <ion-card (click)="consulter(livreur)">
-    
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="assets/imgs/scooter.png" alt="Yoboulma">
-            </ion-avatar>
-            <ion-label class="ion-text-wrap text_space">
-              <ion-text color="primary">
-                <h3 style="color:#e0115f">{{livreur?.name}}</h3>
-              </ion-text>
-              <p>{{livreur?.titre}}</p>
-            </ion-label>
-            <ion-label text-right>
-                <ion-text color="primary">
-                    <h3 style="color:#e0115f">Date publication</h3>
-                  </ion-text>
-                  <p>{{ tabDate[i]}}</p>
-            </ion-label>
-          </ion-item>
-        </ion-card>
+      <ion-list>
+
+          <ion-grid>
+              <ion-row>
+                <ion-col size="6" *ngFor="let livreur of livreurs; let i = index">
+                  <div>
+                    <ion-card (click)="consulter(livreur)">
+                      <ion-card-header>
+                        <img src="assets/imgs/scooter.png" alt="Yoboulma">
+                        <ion-card-subtitle style="color:#e0115f; font-size: x-small !important;
+                                font-weight: 600;
+                                letter-spacing: 0px;
+                                text-transform: lowercase">{{livreur?.name}}</ion-card-subtitle>
+                        <ion-card-title style="font-size: x-small; font-weight: 500;">{{livreur?.titre}}</ion-card-title>
+                      </ion-card-header>
+                    </ion-card>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
       </ion-list>
       <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataLivreur($event)">
           <ion-infinite-scroll-content

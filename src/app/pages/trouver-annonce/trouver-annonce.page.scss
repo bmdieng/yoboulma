@@ -1,6 +1,12 @@
 .text_space{
     padding: 0 20px;
 }
+img {
+    width: auto;
+    max-width: 65%;
+    height: auto;
+    max-height: 100%;
+}
 
 .list-md, .list-ios {
     margin-left: 0;

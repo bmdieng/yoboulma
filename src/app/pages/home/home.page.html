@@ -28,14 +28,14 @@
       </ion-segment-button>
     </ion-segment>
 
-    
+
 
     <ion-slides #slides (ionSlideDidChange)="slideChanged()" scrollbar="true">
       <ion-slide>
         <div style="width:100%;">
           <h4 style="color:#e0115f">Livreurs disponibles</h4>
           <ion-label>
-              <!-- <ion-searchbar
+            <!-- <ion-searchbar
               [(ngModel)]="inputLivreur"
               (ionInput)="rechercherLivreur($event)"
               placeholder="Chercher un livreur"
@@ -43,73 +43,71 @@
             </ion-searchbar> -->
           </ion-label>
 
-          <ion-list *ngFor="let livreur of livreurs; let i = index">
-            <ion-card (click)="consulter(livreur)">
-              <ion-item>
-                <ion-avatar item-start>
-                  <img src="assets/imgs/scooter.png" alt="Yoboulma">
-                </ion-avatar>
-                <ion-label class="ion-text-wrap">
-                  <ion-text color="primary">
-                    <h3 style="color:#e0115f">{{livreur?.name}}</h3>
-                  </ion-text>
-                  <p>{{livreur?.titre}}</p>
-                </ion-label>
-                <ion-label text-right>
-                    <ion-text color="primary">
-                        <h3 style="color:#e0115f">Date publication</h3>
-                      </ion-text>
-                      <p>{{ tabDateLiv[i]}}</p>
-                </ion-label>
-              </ion-item>
-            </ion-card>
+          <ion-list>
+
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6" *ngFor="let livreur of livreurs; let i = index">
+                  <div>
+                    <ion-card (click)="consulter(livreur)">
+                      <ion-card-header>
+                        <img src="assets/imgs/scooter.png" alt="Yoboulma">
+                        <ion-card-subtitle style="color:#e0115f; font-size: x-small !important;
+                                font-weight: 600;
+                                letter-spacing: 0px;
+                                text-transform: lowercase">{{livreur?.name}}</ion-card-subtitle>
+                        <ion-card-title style="font-size: x-small;font-weight: 500;">{{livreur?.titre}}</ion-card-title>
+                      </ion-card-header>
+                    </ion-card>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
           </ion-list>
           <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataLivreur($event)">
-              <ion-infinite-scroll-content
-                loadingSpinner="bubbles"
-                loadingText="Loading more data...">
-              </ion-infinite-scroll-content>
-            </ion-infinite-scroll>
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
         </div>
       </ion-slide>
       <ion-slide>
         <div style="width:100%;">
           <h4 style="color:#e0115f">Annonces disponibles</h4>
           <ion-label>
-              <!-- <ion-searchbar
+            <!-- <ion-searchbar
               [(ngModel)]="inputAnnonce"
               (ionInput)="rechercherAnnonce($event)"
               placeholder="Chercher une annonce"
               (ionCancel)="onCancel($event)">
             </ion-searchbar> -->
           </ion-label>
-          <ion-list *ngFor="let annonce of annonces; let i = index">
-            <ion-card (click)="consulterAnnonce(annonce)">
-              <ion-item>
-                <ion-avatar item-start>
-                  <img src="assets/img/profile.png" alt="Yoboulma">
-                </ion-avatar>
-                <ion-label class="ion-text-wrap text_space">
-                  <ion-text color="primary">
-                    <h3 style="color:#e0115f">{{annonce?.auteur}}</h3>
-                  </ion-text>
-                  <p>{{annonce?.titre}}</p>
-                </ion-label>
-                <ion-label text-right>
-                    <ion-text color="primary">
-                        <h3 style="color:#e0115f">Date de fin</h3>
-                      </ion-text>
-                      <p>{{ tabDateAn[i]}}</p>
-                </ion-label>
-              </ion-item>
-            </ion-card>
+          <ion-list>
+
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6" *ngFor="let annonce of annonces; let i = index">
+                  <div>
+                    <ion-card (click)="consulterAnnonce(annonce)">
+                      <ion-card-header>
+                        <img src="assets/imgs/package.png" alt="Yoboulma">
+                        <ion-card-subtitle style="color:#e0115f; font-size: x-small !important;
+                                font-weight: 600;
+                                letter-spacing: 0px;
+                                text-transform: lowercase">{{annonce?.auteur}}</ion-card-subtitle>
+                        <ion-card-title style="font-size: x-small;font-weight: 500;">{{annonce?.titre}}</ion-card-title>
+                      </ion-card-header>
+                    </ion-card>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
 
           </ion-list>
           <ion-infinite-scroll threshold="100px" (ionInfinite)="loadDataAnnonce($event)">
-              <ion-infinite-scroll-content
-                loadingSpinner="bubbles">
-              </ion-infinite-scroll-content>
-            </ion-infinite-scroll>
+            <ion-infinite-scroll-content loadingSpinner="bubbles">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
         </div>
       </ion-slide>
     </ion-slides>

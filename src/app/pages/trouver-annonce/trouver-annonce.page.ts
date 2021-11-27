@@ -70,7 +70,9 @@ export class TrouverAnnoncePage implements OnInit {
           // }
         });
         console.log(this.livreurs);
-        event.target.complete();
+        if (event) {
+          event.target.complete();
+        }
       });
     loading.then(load => {
       load.dismiss();

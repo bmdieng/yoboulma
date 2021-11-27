@@ -70,7 +70,9 @@ export class PublierAnnoncePage implements OnInit {
           }
         });
         console.log(this.annonces);
-        event.target.complete();
+        if (event) {
+          event.target.complete();
+        }
       });
     loading.then(load => {
       load.dismiss();

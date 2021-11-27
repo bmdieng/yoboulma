@@ -7,6 +7,13 @@
 ion-toolbar {
   background-image: url('../../../assets/icon/Yoboulma.png') 0 0/100% 100% no-repeat;
 }
+
+.swiper-slide img {
+  width: auto;
+  max-width: 65%;
+  height: auto;
+  max-height: 100%;
+}
 .navigate{
 color:#e0115f; 
 font-size: 35px; 

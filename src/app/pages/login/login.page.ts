@@ -55,6 +55,7 @@ export class LoginPage implements OnInit {
         (data) => {
           console.log("Get Value firstConnect: ", data);
           this.firstConnect = data
+          this.fingerPrint();
         },
         error => console.error('Error storing firstConnect', error)
       );
@@ -72,14 +73,20 @@ fingerPrint() {
     if(result.isAvailable){
       // it is available
 
-      this.androidFingerprintAuth.encrypt({ clientId: APPLICATION_NAME, username: 'momodieng00@hotmail.com', password: 'test2020' })
+      this.androidFingerprintAuth.encrypt({ clientId: APPLICATION_NAME, username: '', password: '' })
         .then(result => {
         console.log("Device info => ", this.device.model, this.device.uuid, this.device.version, this.device.platform);
 
            if (result.withFingerprint) {
                console.log('Successfully encrypted credentials.');
                console.log('Encrypted credentials: ' + result.token);
-               this.navCtrl.navigateRoot("home");
+               this.storage.getItem('params').then(
+                (data) => {
+                  let user = data;
+                  this.login(user);
+                },
+                error => console.error('Error storing firstConnect', error)
+              );
            } else if (result.withBackup) {
              console.log('Successfully authenticated with backup password!');
            } else console.log('Didn\'t authenticate!');
@@ -120,6 +127,10 @@ login(user: User) {
               .then(
                 () => console.log('Stored firstConnect!'),
                 error => console.error('Error storing firstConnect', error)
+              );
+              this.storage.setItem('params', user).then(
+                () => console.log('Store user info'),
+                error => console.error('Error storing', error)
               );
               this.navCtrl.navigateRoot("home");
             } else {

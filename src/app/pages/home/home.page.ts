@@ -71,16 +71,13 @@ export class HomePage {
     });
     this.itemRef
       .orderByChild("date")
-      // .startAt(start)
+      .startAt(start)
       .limitToLast(limit)
       .on("value", itemSnapshot => {
-        let tabLivreurs = [];
+        this.livreurs = [];
         console.log("itemSnapshot  => ", itemSnapshot);
         
         itemSnapshot.forEach(itemSnap => {
-          // var dateOne = new Date(); //Year, Month, Date
-          // var dateTwo = new Date(itemSnap.val().date);
-          // if (this.compare_dates(dateOne, dateTwo)) {
           if (itemSnap.val().etat) {
             var m = new Date(itemSnap.val().date);
             var dateString =
@@ -99,11 +96,10 @@ export class HomePage {
           }
           // }
         });
-        // console.log("Liste ==> ", tabLivreurs);
-        // this.livreurs = [...tabLivreurs].reverse(); 
-        // console.log("liste this.livreurs => ",this.livreurs);
       
-        event.target.complete();
+        if (event) {
+          event.target.complete();
+        }
       });
     loading.then(load => {
       load.dismiss();
@@ -118,10 +114,10 @@ export class HomePage {
     });
     this.itemRef_
       .orderByChild("date")
-      // .startAt(start)
+      .startAt(start)
       .limitToLast(limit)
       .on("value", itemSnapshot => {
-        let tabAnnonces = [];
+        this.annonces = [];
         itemSnapshot.forEach(itemSnap => {
           var dateOne = new Date(); //Year, Month, Date
           var dateTwo = new Date(itemSnap.val().date);
@@ -140,17 +136,14 @@ export class HomePage {
                 m.getUTCMinutes();
               console.log("date => ", dateString);
               this.tabDateAn.push(dateString);
-              tabAnnonces.push(itemSnap.val());
+              this.annonces.push(itemSnap.val());
             }
           }
         });
-        this.annonces = tabAnnonces;
-        console.log(this.annonces);
-        // this.annonces.sort(function(a, b) {
-        //   if (a.date > b.date) return 1;
-        //   if (a.date < b.date) return -1;
-        // });
-        event.target.complete();
+        if (event) {
+          event.target.complete();
+        }
+        
       });
     loading.then(load => {
       load.dismiss();
